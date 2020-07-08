@@ -1,9 +1,11 @@
-from packageapp import app
+from packageapp import app, db
 from flask import render_template
 
 @app.route("/")
 @app.route("/index")
 def index():
+    online_users = db.db.users.find({"online": True})
+    print(online_users)
     return render_template("index.html", title="Index")
 
 @app.route("/products")
