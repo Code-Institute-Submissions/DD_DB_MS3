@@ -4,7 +4,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <link rel="icon" href="">
+        <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
         <!-- Imported CSS & Fonts -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -14,13 +14,37 @@
     </head>
 
     <body>
+        <header>
+            <div class="fixed-action-btn collapsed-icon-menu header-height">
+                <a class="btn-floating btn-large teal lighten-1">
+                  <i class="large material-icons">more_horiz</i>
+                </a>
+                <ul class="header-width">
+                  <li><a class="btn-floating teal lighten-2"><i class="material-icons">home</i></a></li>
+                  <li><a class="btn-floating teal lighten-2"><i class="material-icons">brush</i></a></li>
+                  <li><a class="btn-floating teal lighten-2"><i class="material-icons">add_circle_outline</i></a></li>
+                  <li><a class="btn-floating teal lighten-2"><i class="material-icons">supervisor_account</i></a></li>
+                </ul>
+            </div>
+        </header>
 
-        {% block content %}{% endblock %}
+        <section class="app-container">
+            {% block content %}{% endblock %}
+        </section>
 
         <footer></footer>
 
         <!-- Imported JS & JQuery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script>   
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('.fixed-action-btn');
+                var instances = M.FloatingActionButton.init(elems, {
+                direction: 'left',
+                hoverEnabled: false
+                });
+            });
+        </script>
     </body>
 </html>
