@@ -1,3 +1,9 @@
 body {
-    background-color: blue;
+    background-color: #fcd190;
+}
+
+.hero-image-index {
+    background-image: url(../images/vanity.png);
+    background-size: cover;
+    text-align: center;
 }
