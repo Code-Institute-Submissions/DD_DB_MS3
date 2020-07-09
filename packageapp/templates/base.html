@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
         <!-- Imported CSS & Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <!-- Own CSS -->
@@ -16,23 +17,35 @@
     <body>
         <header>
             <div class="fixed-action-btn collapsed-icon-menu header-height">
-                <a class="btn-floating btn-large teal lighten-1">
+                <a class="waves-effect waves-circle waves-light btn-floating btn-large teal lighten-1 tooltipped" data-delay="250" data-position="bottom" data-tooltip="Options">
                   <i class="large material-icons">more_horiz</i>
                 </a>
                 <ul class="header-width">
-                  <li><a class="btn-floating teal lighten-2"><i class="material-icons">home</i></a></li>
-                  <li><a class="btn-floating teal lighten-2"><i class="material-icons">brush</i></a></li>
-                  <li><a class="btn-floating teal lighten-2"><i class="material-icons">add_circle_outline</i></a></li>
-                  <li><a class="btn-floating teal lighten-2"><i class="material-icons">supervisor_account</i></a></li>
+                  <li><a class="waves-effect waves-circle waves-light btn-floating teal lighten-2 tooltipped" data-delay="250" data-position="bottom" data-tooltip="Home"><i class="material-icons">home</i></a></li>
+                  <li><a class="waves-effect waves-circle waves-light btn-floating teal lighten-2 tooltipped" data-delay="250" data-position="bottom" data-tooltip="My Cosmetics"><i class="material-icons">brush</i></a></li>
+                  <li><a class="waves-effect waves-circle waves-light btn-floating teal lighten-2 tooltipped" data-delay="250" data-position="bottom" data-tooltip="Add Cosmetic"><i class="material-icons">add_circle_outline</i></a></li>
+                  <li><a class="waves-effect waves-circle waves-light btn-floating teal lighten-2 tooltipped" data-delay="250" data-position="bottom" data-tooltip="LogIn/Out"><i class="material-icons">supervisor_account</i></a></li>
                 </ul>
             </div>
         </header>
 
-        <section class="app-container">
+        <main class="app-container">
             {% block content %}{% endblock %}
-        </section>
+        </main>
 
-        <footer></footer>
+        <footer>
+            <div class="footer-copyright">
+                <div class="container">
+                    <p class="footer-text">
+                        Copyright &copy; 2020.
+                        <span class="hide-on-small-only">All rights reserved.</span>
+                        <a class="teal-text text-lighten-1 right tooltipped" data-delay="350" data-position="top" data-tooltip="Go to GitHub" href="https://github.com/CruzZFire/DD_DB_MS3" target="_blank">
+                            Find the repository
+                        </a>
+                    </p>
+                </div>
+              </div>    
+        </footer>
 
         <!-- Imported JS & JQuery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -44,6 +57,10 @@
                 direction: 'left',
                 hoverEnabled: false
                 });
+            });
+
+            $(document).ready(function(){
+                $('.tooltipped').tooltip();
             });
         </script>
     </body>

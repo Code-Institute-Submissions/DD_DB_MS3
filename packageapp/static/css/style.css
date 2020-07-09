@@ -1,3 +1,16 @@
+/* General */
+
+.title-style {
+    font-family: 'Satisfy', cursive;
+}
+
+.material-tooltip {
+    background-color: transparent;
+    font-size: 80%;
+    font-weight: 600;
+    color: #2F4F4F;
+}
+
 /* Base */
 
 body {
@@ -23,13 +36,17 @@ body {
     justify-content: center;
 }
 
+.footer-text {
+    font-size: 90%;
+}
+
 /* Index */
 
 .hero-image-index {
     background-image: url(../images/vanity.png);
     background-size: cover;
     background-position: top center;
-    min-height: 90vh;
+    min-height: 93vh;
     width: 100%;
 }
 
@@ -39,12 +56,23 @@ body {
     top: 50vh;
 }
 
-
+.homepage-button a {
+    height: auto;
+    padding: 9px 18px;
+    font-size: 16px;
+    letter-spacing: 2px;
+    word-spacing: 3px;
+    line-height: normal;
+}
 
 /* Media Queries */
 
 @media screen and (min-width: 600px) {
     .hero-image-index {
       width: 650px;
+    }
+
+    .homepage-button a {
+        font-size: 24px;
     }
   }
