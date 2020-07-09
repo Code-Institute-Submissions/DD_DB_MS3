@@ -3,5 +3,10 @@
 {% block content %}
 
     <h1>we r in index</h1>
-    
+    <p>
+        {% for makeup in makeups %}
+            {{ makeup.brand }}
+        {% endfor %}
+    </p>
+
 {% endblock %}

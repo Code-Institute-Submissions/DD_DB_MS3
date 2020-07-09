@@ -1,12 +1,10 @@
-from packageapp import app, db
-from flask import render_template
+from packageapp import app, mongodb
+from flask import render_template, redirect, request, url_for
 
 @app.route("/")
 @app.route("/index")
 def index():
-    online_users = db.db.users.find({"online": True})
-    print(online_users)
-    return render_template("index.html", title="Index")
+    return render_template("index.html", title="Index", makeups=mongodb.db.makeups.find())
 
 @app.route("/products")
 def products():
