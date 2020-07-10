@@ -1,5 +1,6 @@
 from packageapp import app, mongodb
 from flask import render_template, redirect, request, url_for
+from packageapp.forms import SigninForm
 
 @app.route("/")
 @app.route("/index")
@@ -24,4 +25,5 @@ def signup():
 
 @app.route("/signin")
 def signin():
-    return render_template("signin.html", title="")
+    form = SigninForm()
+    return render_template("signin.html", title="Sign In", form=form)

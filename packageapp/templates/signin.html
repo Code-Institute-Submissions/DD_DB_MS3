@@ -8,16 +8,17 @@
                 <div class="card teal darken-2 z-depth-3">
                     <div class="card-content white-text">
                         <span class="card-title title-style">Sing In</span>
-                        <form class="">
+                        <form action="" method="POST" novalidate>
+                            {{ form.hidden_tag() }}
                             <div class="input-field">
                                 <i class="material-icons prefix">person_outline</i>
-                                <input id="first_name" type="text" class="validate">
-                                <label class="label" for="first_name">Insert Username</label>
+                                {{ form.user_name(size=30, id="first_name") }}
+                                <label class="label" for="first_name">{{ form.user_name.label }}</label>
                             </div>
                             <div class="input-field">
                                 <i class="material-icons prefix">vpn_key</i>
-                                <input id="password" type="password" class="validate">
-                                <label class="label" for="password">Insert Password</label>
+                                {{ form.password(size=30, id="password") }}
+                                <label class="label" for="password">{{ form.password.label }}</label>
                             </div>
                             <div class="col s12">
                                 <button class="btn-large waves-effect waves-light title-style" type="submit" name="action">Manage My Makeup
