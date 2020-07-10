@@ -10,22 +10,31 @@
                         <span class="card-title title-style">Sing In</span>
                         <form action="" method="POST" novalidate>
                             {{ form.hidden_tag() }}
+                            <!-- Username Field -->
                             <div class="input-field">
                                 <i class="material-icons prefix">person_outline</i>
                                 {{ form.user_name(size=30, id="first_name") }}
                                 <label class="label" for="first_name">{{ form.user_name.label }}</label>
+                                {% for error in form.user_name.errors %}
+                                    <span>[{{ error }}]</span>
+                                {% endfor %}
                             </div>
+                            <!-- Password Field -->
                             <div class="input-field">
                                 <i class="material-icons prefix">vpn_key</i>
                                 {{ form.password(size=30, id="password") }}
                                 <label class="label" for="password">{{ form.password.label }}</label>
+                                {% for error in form.password.errors %}
+                                    <span>[{{ error }}]</span>
+                                {% endfor %}
                             </div>
+                            <!-- Submit Button -->
                             <div class="col s12">
                                 <button class="btn-large waves-effect waves-light title-style" type="submit" name="action">Manage My Makeup
                                     <i class="material-icons right">keyboard_arrow_right</i>
                                 </button>
                             </div>
-                            <a class="orange-text darken-3" href="#"><em>Cancel</em></a>
+                            <a class="orange-text darken-3" href="{{ url_for('index') }}"><em>Cancel</em></a>
                         </form>
                     </div>
                 </div>
