@@ -21,7 +21,8 @@ def addproduct():
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
-    return render_template("signup.html", title="")
+    form = SignupForm()
+    return render_template("signup.html", title="Sign Up", form=form)
 
 @app.route("/signin", methods=["GET", "POST"])
 def signin():
