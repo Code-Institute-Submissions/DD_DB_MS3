@@ -16,6 +16,10 @@
     width: auto !important;
 }
 
+.form-submit-pacement {
+    margin-bottom: 10px;
+}
+
 /* Base */
 
 body {
@@ -34,6 +38,10 @@ body {
     position: absolute;
     top: 3%;
     right: 3%;
+}
+
+.flashed-messages {
+    position: absolute;
 }
 
 .app-container {

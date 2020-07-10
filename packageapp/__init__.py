@@ -1,6 +1,6 @@
+import os
 from flask import Flask, url_for
 from config import Config
-import os
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
