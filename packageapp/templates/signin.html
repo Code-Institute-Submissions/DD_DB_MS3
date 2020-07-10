@@ -2,6 +2,34 @@
 
 {% block content %}
 
-    <h1>Sign In</h1>
-    
+    <div class="hero-image-index">
+        <div class="row signin-card">
+            <div class="col s12 center-align">
+                <div class="card teal darken-2 z-depth-3">
+                    <div class="card-content white-text">
+                        <span class="card-title title-style">Sing In</span>
+                        <form class="">
+                            <div class="input-field">
+                                <i class="material-icons prefix">person_outline</i>
+                                <input id="first_name" type="text" class="validate">
+                                <label class="label" for="first_name">Insert Username</label>
+                            </div>
+                            <div class="input-field">
+                                <i class="material-icons prefix">vpn_key</i>
+                                <input id="password" type="password" class="validate">
+                                <label class="label" for="password">Insert Password</label>
+                            </div>
+                            <div class="col s12">
+                                <button class="btn-large waves-effect waves-light title-style" type="submit" name="action">Manage My Makeup
+                                    <i class="material-icons right">keyboard_arrow_right</i>
+                                </button>
+                            </div>
+                            <a class="orange-text darken-3" href="#"><em>Cancel</em></a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

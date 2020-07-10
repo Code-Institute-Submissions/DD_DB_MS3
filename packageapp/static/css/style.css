@@ -2,6 +2,7 @@
 
 .title-style {
     font-family: 'Satisfy', cursive;
+    text-transform: capitalize;
 }
 
 .material-tooltip {
@@ -9,6 +10,10 @@
     font-size: 80%;
     font-weight: 600;
     color: #2F4F4F;
+}
+
+.input-field label {
+    width: auto !important;
 }
 
 /* Base */
@@ -63,6 +68,17 @@ body {
     letter-spacing: 2px;
     word-spacing: 3px;
     line-height: normal;
+}
+
+/* Sign In */
+
+.signin-card {
+    width: 310px;
+    margin-left: -155px;
+    z-index: 10;
+    position: absolute;
+    left: 50%;
+    top: 15vh;
 }
 
 /* Media Queries */
