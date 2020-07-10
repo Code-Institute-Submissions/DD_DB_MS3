@@ -28,6 +28,20 @@ def addproduct():
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     form = SignupForm()
+    if form.validate_on_submit():
+        users = mongodb.db.users
+        old_user = users.find_one({"name": request.form["username"].lower()})
+        
+        if old_user is None:
+            password_hash = ""
+            new_user = {"name": request.form["username"].lower(), "password": password_hash}
+            users.insert_one(new_user)
+            flash("{}'s vanity created".format(form.username.data))
+            return redirect("/signin")
+        else:
+            flash("That vanity name is taken")
+            return redirect("/signup")
+            
     return render_template("signup.html", title="Sign Up", form=form)
 
 
@@ -35,6 +49,6 @@ def signup():
 def signin():
     form = SigninForm()
     if form.validate_on_submit():
-        flash("Your vanity is ready, {}".format(form.user_name.data))
+        flash("Your vanity is ready, {}".format(form.username.data))
         return redirect("/index")
     return render_template("signin.html", title="Sign In", form=form)

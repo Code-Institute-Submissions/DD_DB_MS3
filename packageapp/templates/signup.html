@@ -13,9 +13,9 @@
                             <!-- Username Field -->
                             <div class="input-field">
                                 <i class="material-icons prefix">person_outline</i>
-                                {{ form.user_name(size=30, maxlength="20", id="first_name") }}
-                                <label class="label" for="first_name">{{ form.user_name.label }}</label>
-                                {% for error in form.user_name.errors %}
+                                {{ form.username(size=30, maxlength="20", id="first_name") }}
+                                <label class="label" for="first_name">{{ form.username.label }}</label>
+                                {% for error in form.username.errors %}
                                     <span>[{{ error }}]</span>
                                 {% endfor %}
                             </div>
