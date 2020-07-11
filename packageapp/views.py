@@ -65,8 +65,9 @@ def signin():
             return redirect(url_for('signin'))
 
         if bcrypt.check_password_hash(user_signing["password"], password):
-            session["username"] = user
-            print(session)
+            user_id = str(user_signing["_id"])
+            session["id"] = user_id
+            session["name"] = user
             flash("Your vanity is ready, {}".format(form.username.data))
             return redirect(url_for('index'))
 
@@ -74,3 +75,12 @@ def signin():
         return redirect(url_for('signin'))
 
     return render_template("signin.html", title="Sign In", form=form)
+
+
+@app.route('/signout')
+def signout():
+    if session.get("id") is None:
+        return redirect(url_for('signin'))
+    session.pop("id", None)
+    flash("Vanity closed successfully")
+    return redirect(url_for('index'))
