@@ -12,16 +12,25 @@ def index():
 
 @app.route("/products", methods=["GET", "POST"])
 def products():
+    if session.get("id") is None:
+        flash("No Vanity is open")
+        return redirect(url_for('signin'))
     return render_template("products.html", title="My products")
 
 
 @app.route("/editproduct", methods=["GET", "POST"])
 def editproduct():
+    if session.get("id") is None:
+        flash("No Vanity is open")
+        return redirect(url_for('signin'))
     return render_template("editproduct.html", title="Edit Product")
 
 
 @app.route("/addproduct", methods=["GET", "POST"])
 def addproduct():
+    if session.get("id") is None:
+        flash("No Vanity is open")
+        return redirect(url_for('signin'))
     return render_template("addproduct.html", title="Add Product")
 
 
