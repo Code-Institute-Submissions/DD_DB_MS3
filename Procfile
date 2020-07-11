@@ -1,1 +1,1 @@
-web: Python MUManager.py
+web: python MUManager.py
