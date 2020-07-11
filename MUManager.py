@@ -1,1 +1,1 @@
-from packageapp import app
+from packageapp import app, views

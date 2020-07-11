@@ -1,14 +1,15 @@
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, SubmitField, StringField, PasswordField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, EqualTo, ValidationError
 
 
 class SigninForm(FlaskForm):
-    username = StringField('Insert Username', validators=[DataRequired()])
-    password = PasswordField('Insert Password', validators=[DataRequired()])
+    username = StringField("Insert Username", validators=[DataRequired()])
+    password = PasswordField("Insert Password", validators=[DataRequired()])
 
 
 class SignupForm(FlaskForm):
-    username = StringField('Insert Username', validators=[DataRequired()])
-    password = PasswordField('Insert Password', validators=[DataRequired()])
-    password2 = PasswordField('Repeat Password', validators=[DataRequired()])
+    username = StringField("Insert Username", validators=[DataRequired()])
+    password = PasswordField("Insert Password", validators=[DataRequired()])
+    password2 = PasswordField("Repeat Password",
+                              validators=[DataRequired(), EqualTo("password")])

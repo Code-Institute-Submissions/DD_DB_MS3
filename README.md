@@ -10,3 +10,5 @@ flask-wtf - wtforms for forms and validation
 dnspython - connect db
 Flask-Pymongo - connect mongo
 Flask-bcrypt - hashing passwords
+
+future: password recover, email db for spam

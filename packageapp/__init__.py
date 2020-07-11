@@ -10,8 +10,6 @@ app.config.from_object(Config)
 mongodb = PyMongo(app)
 bcrypt = Bcrypt(app)
 
-from packageapp import views
-
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

@@ -28,6 +28,7 @@ def addproduct():
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     form = SignupForm()
+
     if form.validate_on_submit():
         users = mongodb.db.users
         old_user = users.find_one({"name": request.form["username"].lower()})
@@ -41,9 +42,10 @@ def signup():
                 }
             users.insert_one(new_user)
             flash("{}'s vanity created".format(form.username.data))
-            return redirect("/signin")
+            return redirect(url_for('signin'))
+
         flash("That Vanity Name is taken")
-        return redirect("/signup")
+        return redirect(url_for('signup'))
 
     return render_template("signup.html", title="Sign Up", form=form)
 
@@ -52,17 +54,23 @@ def signup():
 def signin():
     form = SigninForm()
     users = mongodb.db.users
+
     if form.validate_on_submit():
         password = request.form["password"]
         user = request.form["username"]
         user_signing = users.find_one({"name": user.lower()})
+
         if user_signing is None:
             flash("Vanity Name doesn't exist")
-            return redirect("/signin")
+            return redirect(url_for('signin'))
+
         if bcrypt.check_password_hash(user_signing["password"], password):
             session["username"] = user
+            print(session)
             flash("Your vanity is ready, {}".format(form.username.data))
-            return redirect("/index")
+            return redirect(url_for('index'))
+
         flash("Vanity Name and Password don't match")
-        return redirect("/signin")
+        return redirect(url_for('signin'))
+
     return render_template("signin.html", title="Sign In", form=form)
