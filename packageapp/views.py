@@ -1,5 +1,6 @@
 from packageapp import app, mongodb, bcrypt
 from flask import render_template, redirect, request, url_for, flash, session
+from datetime import datetime
 from packageapp.forms import SigninForm, SignupForm
 
 
@@ -47,7 +48,9 @@ def signup():
                 request.form["password"]).decode("utf-8")
             new_user = {
                 "name": request.form["username"].lower(),
-                "password": password_hash
+                "email": request.form["email"],
+                "password": password_hash,
+                "dateosu": datetime.utcnow()
                 }
             users.insert_one(new_user)
             flash("{}'s vanity created".format(form.username.data))

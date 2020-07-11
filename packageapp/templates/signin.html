@@ -13,8 +13,8 @@
                             <!-- Username Field -->
                             <div class="input-field">
                                 <i class="material-icons prefix">person_outline</i>
-                                {{ form.username(size=30, maxlength="20", id="first_name") }}
-                                <label class="label" for="first_name">{{ form.username.label }}</label>
+                                {{ form.username(size=30, id="username") }}
+                                <label class="label" for="username">{{ form.username.label }}</label>
                                 {% for error in form.username.errors %}
                                     <span>[{{ error }}]</span>
                                 {% endfor %}
@@ -22,7 +22,7 @@
                             <!-- Password Field -->
                             <div class="input-field">
                                 <i class="material-icons prefix">vpn_key</i>
-                                {{ form.password(size=30, maxlength="20", id="password") }}
+                                {{ form.password(size=30, id="password") }}
                                 <label class="label" for="password">{{ form.password.label }}</label>
                                 {% for error in form.password.errors %}
                                     <span>[{{ error }}]</span>

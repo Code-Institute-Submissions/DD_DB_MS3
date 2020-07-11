@@ -13,16 +13,25 @@
                             <!-- Username Field -->
                             <div class="input-field">
                                 <i class="material-icons prefix">person_outline</i>
-                                {{ form.username(size=30, maxlength="20", id="first_name") }}
-                                <label class="label" for="first_name">{{ form.username.label }}</label>
+                                {{ form.username(size=30, id="username") }}
+                                <label class="label" for="username">{{ form.username.label }}</label>
                                 {% for error in form.username.errors %}
+                                    <span>[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                            <!-- Email Field -->
+                            <div class="input-field">
+                                <i class="material-icons prefix">mail_outline</i>
+                                {{ form.email(id="email") }}
+                                <label class="label" for="email">{{ form.email.label }}</label>
+                                {% for error in form.email.errors %}
                                     <span>[{{ error }}]</span>
                                 {% endfor %}
                             </div>
                             <!-- Password Field -->
                             <div class="input-field">
                                 <i class="material-icons prefix">vpn_key</i>
-                                {{ form.password(size=30, maxlength="20", id="password") }}
+                                {{ form.password(size=30, id="password") }}
                                 <label class="label" for="password">{{ form.password.label }}</label>
                                 {% for error in form.password.errors %}
                                     <span>[{{ error }}]</span>
@@ -31,7 +40,7 @@
                             <!-- Password2 Field -->
                             <div class="input-field">
                                 <i class="material-icons prefix">vpn_key</i>
-                                {{ form.password2(size=30, maxlength="20", id="password2") }}
+                                {{ form.password2(size=30, id="password2") }}
                                 <label class="label" for="password2">{{ form.password2.label }}</label>
                                 {% for error in form.password2.errors %}
                                     <span>[{{ error }}]</span>

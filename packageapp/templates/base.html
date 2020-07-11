@@ -37,6 +37,7 @@
                             <i class="material-icons">add_circle_outline</i>
                         </a>
                     </li>
+                    <!-- Session conditional for log in/out -->
                     <li>
                         {% if session.get("id") is none %}
                         <a href="{{ url_for('signin') }}" class="waves-effect waves-circle waves-light btn-floating teal lighten-2 tooltipped" data-delay="250" data-position="bottom" data-tooltip="Log In">
