@@ -38,9 +38,15 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ url_for('signup') }}" class="waves-effect waves-circle waves-light btn-floating teal lighten-2 tooltipped" data-delay="250" data-position="bottom" data-tooltip="LogIn/Out">
-                            <i class="material-icons">supervisor_account</i>
+                        {% if session.get("id") is none %}
+                        <a href="{{ url_for('signin') }}" class="waves-effect waves-circle waves-light btn-floating teal lighten-2 tooltipped" data-delay="250" data-position="bottom" data-tooltip="Log In">
+                            <i class="material-icons">person</i>
                         </a>
+                        {% else %}
+                        <a href="{{ url_for('signout') }}" class="waves-effect waves-circle waves-light btn-floating teal lighten-2 tooltipped" data-delay="250" data-position="bottom" data-tooltip="Log Out">
+                            <i class="material-icons">person_outline</i>
+                        </a>
+                        {% endif %}
                     </li>
                 </ul>
             </div>
