@@ -1,5 +1,5 @@
-from packageapp import app, mongodb
-from flask import render_template, redirect, request, url_for, flash
+from packageapp import app, mongodb, bcrypt
+from flask import render_template, redirect, request, url_for, flash, session
 from packageapp.forms import SigninForm, SignupForm
 
 
@@ -31,24 +31,38 @@ def signup():
     if form.validate_on_submit():
         users = mongodb.db.users
         old_user = users.find_one({"name": request.form["username"].lower()})
-        
+
         if old_user is None:
-            password_hash = ""
-            new_user = {"name": request.form["username"].lower(), "password": password_hash}
+            password_hash = bcrypt.generate_password_hash(
+                request.form["password"]).decode("utf-8")
+            new_user = {
+                "name": request.form["username"].lower(),
+                "password": password_hash
+                }
             users.insert_one(new_user)
             flash("{}'s vanity created".format(form.username.data))
             return redirect("/signin")
-        else:
-            flash("That vanity name is taken")
-            return redirect("/signup")
-            
+        flash("That Vanity Name is taken")
+        return redirect("/signup")
+
     return render_template("signup.html", title="Sign Up", form=form)
 
 
 @app.route("/signin", methods=["GET", "POST"])
 def signin():
     form = SigninForm()
+    users = mongodb.db.users
     if form.validate_on_submit():
-        flash("Your vanity is ready, {}".format(form.username.data))
-        return redirect("/index")
+        password = request.form["password"]
+        user = request.form["username"]
+        user_signing = users.find_one({"name": user.lower()})
+        if user_signing is None:
+            flash("Vanity Name doesn't exist")
+            return redirect("/signin")
+        if bcrypt.check_password_hash(user_signing["password"], password):
+            session["username"] = user
+            flash("Your vanity is ready, {}".format(form.username.data))
+            return redirect("/index")
+        flash("Vanity Name and Password don't match")
+        return redirect("/signin")
     return render_template("signin.html", title="Sign In", form=form)

@@ -3,10 +3,12 @@ from flask import Flask, url_for
 from config import Config
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 app.config.from_object(Config)
 mongodb = PyMongo(app)
+bcrypt = Bcrypt(app)
 
 from packageapp import views
 
