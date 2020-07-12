@@ -16,7 +16,11 @@ def products():
     if session.get("id") is None:
         flash("No Vanity is open")
         return redirect(url_for('signin'))
-    return render_template("products.html", title="My products")
+
+    prodtypes = mongodb.db.prodtypes.find()
+
+    return render_template("products.html", title="My products",
+                           prodtypes=prodtypes)
 
 
 @app.route("/editproduct", methods=["GET", "POST"])
@@ -32,6 +36,7 @@ def addproduct():
     if session.get("id") is None:
         flash("No Vanity is open")
         return redirect(url_for('signin'))
+
     form = ProductForm()
     prodtypes = mongodb.db.prodtypes.find()
     products = mongodb.db.products.find()

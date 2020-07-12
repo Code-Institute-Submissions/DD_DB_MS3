@@ -5,67 +5,73 @@
     <div class="product-form-container">
         <h2 class="teal-text lighten-1 title-style product-form-title">Add Product</h2>
         <form action="" method="POST" novalidate>
+            <!-- Product Type Field -->
             <div class="row">
                 <div class="input-field col s12">
-                    <select>
-                        <option value="" disabled selected>Product Type</option>
+                    <select name="prodtype">
+                        <option value="" disabled selected></option>
                         {% for prodtype in prodtypes %}
                             i = 1
                             <option value=i>{{ prodtype.name }}</option>
                             i = i+1
                         {% endfor %}
                     </select>
-                    <label>Product Type</label>
+                    <label>Product Type *</label>
                 </div>
             </div>
+            <!-- Product Sub-Type Field -->
             <div class="row">
                 <div class="input-field col s12">
-                    <select>
+                    <select name="subtype">
                         {% for prodtype in prodtypes %}
-                            <optgroup>
-                                <option value="3">Option 3</option>
+                            <optgroup label="team1">
+                                {% for types in prodtype.subtypes %}
+                                    i = 1
+                                    <option value=i>{{ types }}</option>
+                                    i = i+1
+                                {% endfor %}
                             </optgroup>
-                            <label>{{ prodtype.name }}</label>
-                        {% endfor %}
-                        <optgroup label="team 2">
-                            <option value="3">Option 3</option>
-                            <option value="4">Option 4</option>
-                        </optgroup>                    
+                        {% endfor %}               
                     </select>
-                    <label>Product Sub-Type</label>                  
+                    <label>Product Sub-Type *</label>                  
                 </div>
             </div>
+            <!-- Brand Field -->
             <div class="row">
                 <div class="input-field col s12">
-                    <input placeholder="Placeholder" id="last_name" type="text" class="validate">
-                    <label for="last_name">Brand</label>
+                    <label for="brand">{{ form.brand.label }}</label>
+                    {{ form.brand(size=30, id="brand", name="brand") }}
                 </div>
             </div>
+            <!-- Capacity Field -->
             <div class="row">
                 <div class="input-field col s12">
-                    <input placeholder="Placeholder" id="last_name" type="text" class="validate">
-                    <label for="last_name">Capacity</label>
+                    <label for="capacity">{{ form.capacity.label }}</label>
+                    {{ form.capacity(id="capacity", name="capacity") }}
                 </div>
             </div>
+            <!-- Date of Purchase Field -->
             <div class="row">
                 <div class="col s12">
-                    <label for="dop">Date of Purchase</label>
-                    <input type="text" class="datepicker" id="dop">
+                    <label for="dop">Date of Purchase *</label>
+                    <input type="text" class="datepicker" id="dop" name="dop">
                 </div>
             </div>
+            <!-- Date of 1st Use Field -->
             <div class="row">
                 <div class="col s12">
-                    <label for="dop">Date of 1st Use</label>
-                    <input type="text" class="datepicker" id="dou">
+                    <label for="dop">Date of 1st Use *</label>
+                    <input type="text" class="datepicker" id="dou" name="dou">
                 </div>
             </div>
+            <!-- Due Date Field -->
             <div class="row">
                 <div class="col s12 center-align">
                     <label for="due">Relate Caducity to</label>
                     <div class="switch" id="due">
                         <label>
                         Purchase
-                        <input type="checkbox">
+                        <input type="checkbox" name="duerelation">
                         <span class="lever"></span>
                         Use
                         </label>
