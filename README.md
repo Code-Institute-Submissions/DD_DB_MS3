@@ -11,5 +11,6 @@ dnspython - connect db
 Flask-Pymongo - connect mongo
 Flask-bcrypt - hashing passwords
 email-validator - validate email fields in forms
+gunicorn - publish it for heroku
 
 future: password recover, email db for spam

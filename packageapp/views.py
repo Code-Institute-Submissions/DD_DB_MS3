@@ -1,7 +1,7 @@
 from packageapp import app, mongodb, bcrypt
 from flask import render_template, redirect, request, url_for, flash, session
 from datetime import datetime
-from packageapp.forms import SigninForm, SignupForm
+from packageapp.forms import SigninForm, SignupForm, ProductForm
 
 
 @app.route("/")
@@ -32,7 +32,9 @@ def addproduct():
     if session.get("id") is None:
         flash("No Vanity is open")
         return redirect(url_for('signin'))
-    return render_template("addproduct.html", title="Add Product")
+    form = ProductForm()
+
+    return render_template("addproduct.html", title="Add Product", form=form)
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -53,7 +55,7 @@ def signup():
                 "dateosu": datetime.utcnow()
                 }
             users.insert_one(new_user)
-            flash("{}'s vanity created".format(form.username.data))
+            flash("{}'s Vanity created".format(form.username.data))
             return redirect(url_for('signin'))
 
         flash("That Vanity Name is taken")
@@ -80,7 +82,7 @@ def signin():
             user_id = str(user_signing["_id"])
             session["id"] = user_id
             session["name"] = user
-            flash("Your vanity is ready, {}".format(form.username.data))
+            flash("Your Vanity is ready, {}".format(form.username.data))
             return redirect(url_for('index'))
 
         flash("Vanity Name and Password don't match")

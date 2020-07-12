@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, SubmitField, StringField, PasswordField
+from wtforms import SubmitField, StringField, PasswordField
+from wtforms import DateField, IntegerField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 
@@ -18,3 +19,10 @@ class SignupForm(FlaskForm):
                              validators=[DataRequired(), Length(min=4)])
     password2 = PasswordField("Repeat Password",
                               validators=[DataRequired(), EqualTo("password")])
+
+
+class ProductForm(FlaskForm):
+    brand = StringField("Brand")
+    capacity = IntegerField("Capacity (ml/gr)")
+    datepurchase = DateField("Date of Purchase", validators=[DataRequired()])
+    dateuse = DateField("Date of 1st Use", validators=[DataRequired()])

@@ -2,6 +2,41 @@
 
 {% block content %}
 
-    <h1>add product</h1>
-    
+    <div class="input-field col s12">
+        <select>
+        <option value="" disabled selected>Prodtype</option>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+        </select>
+        <label>Prodtype</label>
+    </div>
+    <div class="input-field col s12">
+        <select>
+        <option value="" disabled selected>Subtype</option>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+        </select>
+        <label>Subtype</label>
+    </div>
+    <div class="input-field col s12">
+        <input id="last_name" type="text" class="validate">
+        <label for="last_name">Brand</label>
+    </div>
+    <div class="input-field col s12">
+        <input id="last_name" type="text" class="validate">
+        <label for="last_name">Capacity</label>
+    </div>
+    <input type="text" class="datepicker">
+    <input type="text" class="datepicker">
+    <div class="switch">
+        <label>
+        Purchase
+        <input type="checkbox">
+        <span class="lever"></span>
+        Use
+        </label>
+    </div>
+ 
 {% endblock %}
