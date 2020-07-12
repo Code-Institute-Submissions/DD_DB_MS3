@@ -1,1 +1,1 @@
-web: python MUManager.py
+web: gunicorn MUManager:app
