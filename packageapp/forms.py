@@ -23,6 +23,6 @@ class SignupForm(FlaskForm):
 
 class ProductForm(FlaskForm):
     brand = StringField("Brand")
-    capacity = IntegerField("Capacity (ml/gr)")
+    capacity = IntegerField("Capacity (ml/gr)", validators=[DataRequired()])
     datepurchase = DateField("Date of Purchase", validators=[DataRequired()])
     dateuse = DateField("Date of 1st Use", validators=[DataRequired()])

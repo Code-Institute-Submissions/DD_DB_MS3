@@ -33,8 +33,27 @@ def addproduct():
         flash("No Vanity is open")
         return redirect(url_for('signin'))
     form = ProductForm()
+    prodtypes = mongodb.db.prodtypes.find()
+    products = mongodb.db.products.find()
 
-    return render_template("addproduct.html", title="Add Product", form=form)
+    if form.validate_on_submit():
+        new_product = {
+            "prodtype": request.form["prodtype"],
+            "subtype": request.form["subtype"],
+            "user_id": session.get("id"),
+            "brand": request.form["brand"],
+            "capacity": request.form["capacity"],
+            "dop": request.form["datepurchase"],
+            "dou": request.form["dateuse"],
+            "dod": request.form[""],
+            "doe": datetime.utcnow()
+            }
+        products.insert_one(new_product)
+        flash("Product added to your Vanity")
+        return redirect(url_for('addproduct'))
+
+    return render_template("addproduct.html", title="Add Product", form=form,
+                           prodtypes=prodtypes, products=products)
 
 
 @app.route("/signup", methods=["GET", "POST"])
