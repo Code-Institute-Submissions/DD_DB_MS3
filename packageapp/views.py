@@ -7,8 +7,7 @@ from packageapp.forms import SigninForm, SignupForm, ProductForm
 @app.route("/")
 @app.route("/index")
 def index():
-    makeups = mongodb.db.makeups.find()
-    return render_template("index.html", title="Index", makeups=makeups)
+    return render_template("index.html", title="Index")
 
 
 @app.route("/products", methods=["GET", "POST"])
@@ -17,10 +16,7 @@ def products():
         flash("No Vanity is open")
         return redirect(url_for('signin'))
 
-    prodtypes = mongodb.db.prodtypes.find()
-
-    return render_template("products.html", title="My products",
-                           prodtypes=prodtypes)
+    return render_template("products.html", title="My products")
 
 
 @app.route("/editproduct", methods=["GET", "POST"])
@@ -39,26 +35,26 @@ def addproduct():
 
     form = ProductForm()
     prodtypes = mongodb.db.prodtypes.find()
-    products = mongodb.db.products.find()
-
-    if form.validate_on_submit():
-        new_product = {
-            "prodtype": request.form["prodtype"],
-            "subtype": request.form["subtype"],
-            "user_id": session.get("id"),
-            "brand": request.form["brand"],
-            "capacity": request.form["capacity"],
-            "dop": request.form["datepurchase"],
-            "dou": request.form["dateuse"],
-            "dod": request.form[""],
-            "doe": datetime.utcnow()
-            }
-        products.insert_one(new_product)
-        flash("Product added to your Vanity")
-        return redirect(url_for('addproduct'))
+    prodtypes2 = mongodb.db.prodtypes.find()
 
     return render_template("addproduct.html", title="Add Product", form=form,
-                           prodtypes=prodtypes, products=products)
+                           prodtypes=prodtypes, prodtypes2=prodtypes2,
+                           products=products)
+
+
+@app.route("/insertproduct", methods=["GET", "POST"])
+def insertproduct():
+    products = mongodb.db.products
+
+    new_product = {
+        "user_id": session.get("id"),
+        "brand": request.form["brand"],
+        "capacity": request.form["capacity"],
+        "doe": datetime.utcnow()
+        }
+    products.insert_one(new_product)
+    flash("Product added to your Vanity")
+    return redirect(url_for('addproduct'))
 
 
 @app.route("/signup", methods=["GET", "POST"])

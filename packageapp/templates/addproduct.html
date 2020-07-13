@@ -4,16 +4,15 @@
 
     <div class="product-form-container">
         <h2 class="teal-text lighten-1 title-style product-form-title">Add Product</h2>
-        <form action="" method="POST" novalidate>
+        <form action="{{ url_for('insertproduct') }}" method="POST">
+            {{ form.hidden_tag() }}
             <!-- Product Type Field -->
             <div class="row">
                 <div class="input-field col s12">
-                    <select name="prodtype">
-                        <option value="" disabled selected></option>
+                    <select name="prodtype" required>
+                        <option value="" disabled selected>Select One</option>
                         {% for prodtype in prodtypes %}
-                            i = 1
-                            <option value=i>{{ prodtype.name }}</option>
-                            i = i+1
+                            <option value="{{ prodtype.name }}">{{ prodtype.name }}</option>
                         {% endfor %}
                     </select>
                     <label>Product Type *</label>
@@ -22,39 +21,37 @@
             <!-- Product Sub-Type Field -->
             <div class="row">
                 <div class="input-field col s12">
-                    <select name="subtype">
-                        {% for prodtype in prodtypes %}
-                            <optgroup label="team1">
-                                {% for types in prodtype.subtypes %}
-                                    i = 1
-                                    <option value=i>{{ types }}</option>
-                                    i = i+1
-                                {% endfor %}
-                            </optgroup>
-                        {% endfor %}               
+                    <select name="subtype" required>
+                        {% for prodtype2 in prodtypes2 %}
+                        <optgroup label="{{ prodtype2.name }}">
+                            {% for type in prodtype2.subtypes %}
+                            <option value="{{ type }}">{{ type }}</option>
+                            {% endfor %}
+                        </optgroup>
+                        {% endfor %}
                     </select>
-                    <label>Product Sub-Type *</label>                  
+                    <label>Product Sub-Type *</label>
                 </div>
             </div>
             <!-- Brand Field -->
             <div class="row">
                 <div class="input-field col s12">
                     <label for="brand">{{ form.brand.label }}</label>
-                    {{ form.brand(size=30, id="brand", name="brand") }}
+                    {{ form.brand(size=30, id="brand") }}
                 </div>
             </div>
             <!-- Capacity Field -->
             <div class="row">
                 <div class="input-field col s12">
                     <label for="capacity">{{ form.capacity.label }}</label>
-                    {{ form.capacity(id="capacity", name="capacity") }}
+                    {{ form.capacity(id="capacity") }}
                 </div>
             </div>
             <!-- Date of Purchase Field -->
             <div class="row">
                 <div class="col s12">
                     <label for="dop">Date of Purchase *</label>
-                    <input type="text" class="datepicker" id="dop" name="dop">
+                    <input type="text" class="datepicker" id="dop" name="dop" required>
                 </div>
             </div>
             <!-- Date of 1st Use Field -->
@@ -71,7 +68,7 @@
                     <div class="switch" id="due">
                         <label>
                         Purchase
-                        <input type="checkbox" name="duerelation">
+                        <input type="checkbox" id="duerelation" name="duerelation">
                         <span class="lever"></span>
                         Use
                         </label>
