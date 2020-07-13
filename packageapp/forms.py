@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField, PasswordField
 from wtforms import DateField, IntegerField
-from wtforms.validators import DataRequired, Email, EqualTo, Length
+from wtforms.validators import DataRequired, InputRequired, Email
+from wtforms.validators import Length, EqualTo, NumberRange
 
 
 class SigninForm(FlaskForm):
@@ -23,4 +24,8 @@ class SignupForm(FlaskForm):
 
 class ProductForm(FlaskForm):
     brand = StringField("Brand", validators=[Length(max=30)])
-    capacity = IntegerField("Capacity (ml/gr) *", validators=[DataRequired()])
+    capacity = IntegerField("Capacity (ml/gr) *",
+                            validators=[InputRequired(),
+                                        NumberRange(min=1, max=3000)])
+    dueperiod = IntegerField("Due in (nº months)",
+                            validators=[NumberRange(min=1, max=12)])

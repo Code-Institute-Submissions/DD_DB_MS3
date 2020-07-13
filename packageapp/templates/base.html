@@ -56,13 +56,13 @@
         <main class="app-container">
 
             {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <ul class="flashed-messages teal-text lighten-1">
-                        {% for message in messages %}
-                            <li><em>{{ message }}</em></li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
+            {% if messages %}
+                <ul class="flashed-messages teal-text lighten-1">
+                    {% for message in messages %}
+                    <li><em>{{ message }}</em></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
             {% endwith %}
                 
             {% block content %}{% endblock %}
@@ -99,6 +99,7 @@
             $(document).ready(function(){
                 $('.tooltipped').tooltip();
                 $('select').formSelect();
+                $('select[required]').css({display: "block", height: 0, padding: 0, width: 0, position: 'absolute', left: "50%"});
                 $('.datepicker').datepicker();
             });
         </script>

@@ -34,27 +34,26 @@ def addproduct():
         return redirect(url_for('signin'))
 
     form = ProductForm()
-    prodtypes = mongodb.db.prodtypes.find()
-    prodtypes2 = mongodb.db.prodtypes.find()
-
-    return render_template("addproduct.html", title="Add Product", form=form,
-                           prodtypes=prodtypes, prodtypes2=prodtypes2,
-                           products=products)
-
-
-@app.route("/insertproduct", methods=["GET", "POST"])
-def insertproduct():
+    prodtypes = mongodb.db.prodtypes
     products = mongodb.db.products
 
-    new_product = {
-        "user_id": session.get("id"),
-        "brand": request.form["brand"],
-        "capacity": request.form["capacity"],
-        "doe": datetime.utcnow()
-        }
-    products.insert_one(new_product)
-    flash("Product added to your Vanity")
-    return redirect(url_for('addproduct'))
+    if form.validate_on_submit():
+        new_product = {
+            "prodtype": request.form["prodtype"],
+            "subtype": request.form["subtype"],
+            "user_id": session.get("id"),
+            "brand": request.form["brand"],
+            "capacity": request.form["capacity"],
+            "dop": request.form["dop"],
+            "dou": request.form["dou"],
+            "doe": datetime.utcnow()
+            }
+        products.insert_one(new_product)
+        flash("Product added to your Vanity")
+        return redirect(url_for('addproduct'))
+
+    return render_template("addproduct.html", title="Add Product", form=form,
+                           prodtypes=prodtypes)
 
 
 @app.route("/signup", methods=["GET", "POST"])

@@ -4,15 +4,16 @@
 
     <div class="product-form-container">
         <h2 class="teal-text lighten-1 title-style product-form-title">Add Product</h2>
-        <form action="{{ url_for('insertproduct') }}" method="POST">
+        <form action="" method="POST">
             {{ form.hidden_tag() }}
             <!-- Product Type Field -->
             <div class="row">
                 <div class="input-field col s12">
-                    <select name="prodtype" required>
+                    <i class="material-icons prefix">short_text</i>
+                    <select id="prodtype" name="prodtype" required>
                         <option value="" disabled selected>Select One</option>
-                        {% for prodtype in prodtypes %}
-                            <option value="{{ prodtype.name }}">{{ prodtype.name }}</option>
+                        {% for prodtype in prodtypes.find() %}
+                        <option value="{{ prodtype.name }}">{{ prodtype.name }}</option>
                         {% endfor %}
                     </select>
                     <label>Product Type *</label>
@@ -21,10 +22,12 @@
             <!-- Product Sub-Type Field -->
             <div class="row">
                 <div class="input-field col s12">
-                    <select name="subtype" required>
-                        {% for prodtype2 in prodtypes2 %}
-                        <optgroup label="{{ prodtype2.name }}">
-                            {% for type in prodtype2.subtypes %}
+                    <i class="material-icons prefix">short_text</i>
+                    <select id="subtype" name="subtype" required>
+                        <option value="" disabled selected>Select One</option>
+                        {% for prodtype in prodtypes.find() %}
+                        <optgroup label="{{ prodtype.name }}">
+                            {% for type in prodtype.subtypes %}
                             <option value="{{ type }}">{{ type }}</option>
                             {% endfor %}
                         </optgroup>
@@ -36,32 +39,53 @@
             <!-- Brand Field -->
             <div class="row">
                 <div class="input-field col s12">
+                    <i class="material-icons prefix">branding_watermark</i>
                     <label for="brand">{{ form.brand.label }}</label>
                     {{ form.brand(size=30, id="brand") }}
+                    {% for error in form.brand.errors %}
+                    <span>[{{ error }}]</span>
+                    {% endfor %}
                 </div>
             </div>
             <!-- Capacity Field -->
             <div class="row">
                 <div class="input-field col s12">
+                    <i class="material-icons prefix">all_inclusive</i>
                     <label for="capacity">{{ form.capacity.label }}</label>
                     {{ form.capacity(id="capacity") }}
+                    {% for error in form.capacity.errors %}
+                    <span>[{{ error }}]</span>
+                    {% endfor %}
                 </div>
             </div>
             <!-- Date of Purchase Field -->
             <div class="row">
-                <div class="col s12">
-                    <label for="dop">Date of Purchase *</label>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">today</i>
                     <input type="text" class="datepicker" id="dop" name="dop" required>
+                    <label for="dop">Date of Purchase *</label>
                 </div>
             </div>
             <!-- Date of 1st Use Field -->
             <div class="row">
-                <div class="col s12">
-                    <label for="dop">Date of 1st Use *</label>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">date_range</i>
                     <input type="text" class="datepicker" id="dou" name="dou">
+                    <label for="dou">Date of 1st Use</label>
                 </div>
             </div>
-            <!-- Due Date Field -->
+            <!-- Due Date Input -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">timer</i>
+                    <label for="dueperiod">{{ form.dueperiod.label }}</label>
+                    {{ form.dueperiod(id="dueperiod") }}
+                    {% for error in form.dueperiod.errors %}
+                    <span>[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Due Date Relation -->
             <div class="row">
                 <div class="col s12 center-align">
                     <label for="due">Relate Caducity to</label>
