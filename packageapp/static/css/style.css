@@ -90,6 +90,18 @@ body {
     top: 15vh;
 }
 
+/* Redistribution */
+
+.redistribution-card {
+    position: absolute;
+    top: 60vh;
+}
+
+.redistribute-buttons {
+    height: fit-content;
+    line-height: 2;
+}
+
 /* Add Product */
 
 .product-form-container {

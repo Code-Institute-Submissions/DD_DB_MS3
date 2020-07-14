@@ -89,7 +89,8 @@ def redistribution():
         flash("No Vanity is open")
         return redirect(url_for('signin'))
     
-    return render_template("redistribution.html", title="My Vanity")
+    owner = session["name"]
+    return render_template("redistribution.html", title="My Vanity", owner=owner)
 
 
 # Sign Up Route
