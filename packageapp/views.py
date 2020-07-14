@@ -22,6 +22,9 @@ def products():
     prodtypes = mongodb.db.prodtypes
     products = mongodb.db.products.find({"user_id": session["id"]})
 
+    if request.method == "POST":
+        products = products.filter({""})
+
     return render_template("products.html", title="My products",
                            prodtypes=prodtypes, products=products)
 
@@ -43,10 +46,9 @@ def addproduct():
         return redirect(url_for('signin'))
 
     form = ProductForm()
-    prodtypes = mongodb.db.prodtypes
-    products = mongodb.db.products
 
     if form.validate_on_submit():
+        products = mongodb.db.products
         numbmonths = int(request.form["dueperiod"])
         capacity_data = int(request.form["capacity"])
         '''
@@ -80,22 +82,12 @@ def addproduct():
             }
         products.insert_one(new_product)
         flash("Product added to your Vanity")
-        return redirect(url_for('redistribution'))
+        return redirect(url_for('index'))
+
+    prodtypes = mongodb.db.prodtypes
 
     return render_template("addproduct.html", title="Add Product", form=form,
                            prodtypes=prodtypes)
-
-
-# Redistribution Card Route
-@app.route("/redistribution", methods=["GET", "POST"])
-def redistribution():
-    if session.get("id") is None:
-        flash("No Vanity is open")
-        return redirect(url_for('signin'))
-
-    owner = session["name"]
-    return render_template("redistribution.html", title="My Vanity",
-                           owner=owner)
 
 
 # Sign Up Route

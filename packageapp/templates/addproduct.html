@@ -24,13 +24,11 @@
                 <div class="input-field col s12">
                     <i class="material-icons prefix">short_text</i>
                     <select id="subtype" name="subtype" required>
-                        <option value="" disabled selected>Select One</option>
-                        {% for prodtype in prodtypes.find() %}
-                        <optgroup label="{{ prodtype.name }}">
+                        {% for prodtype in prodtypes.find({"name": "changefield.value"}) %}
+                        <option value="" disabled selected>{{ prodtype.name }}</option>
                             {% for type in prodtype.subtypes %}
                             <option value="{{ type }}">{{ type }}</option>
                             {% endfor %}
-                        </optgroup>
                         {% endfor %}
                     </select>
                     <label>Product Sub-Type *</label>
