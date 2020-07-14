@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="hero-image-index">
+        <div class="row signin-card">
+            <div class="col s12 center-align">
+                <div class="card teal darken-2 z-depth-3">
+                    <div class="card-content white-text">
+                        <span class="card-title title-style">My Vanity</span>
+                        <div class="col s6 center-align">
+                            <a href="{{ url_for('products') }}" class="waves-effect teal lighten-1 btn title-style">See My Cosmetics</a>
+                        </div>
+                        <div class="col s6 center-align">
+                            <a href="{{ url_for('addproduct') }}" class="waves-effect teal lighten-1 btn title-style">Add Another Cosmetic</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

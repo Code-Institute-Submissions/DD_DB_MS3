@@ -44,20 +44,29 @@ def addproduct():
 
     if form.validate_on_submit():
         numbmonths = int(request.form["dueperiod"])
-
-        if request.values.get("duerelation") == "on":
-            due_origin = request.values.get("dou")
-        due_origin = request.values.get("dop")
+        capacity_data = int(request.form["capacity"])
+        '''
+        Date input conditionals and operations to get
+        due date properly depending on choice
+        '''
+        if request.form["dou"] != "":
+            if type(request.form.get("duerelation")) is str:
+                due_origin = request.values.get("dou")
+            else:
+                due_origin = request.values.get("dop")
+        else:
+            due_origin = request.values.get("dop")
         date_object = datetime.strptime(due_origin, '%b %d, %Y')
         due_date = date_object + relativedelta(months=numbmonths)
         due_string = due_date.strftime('%b %d, %Y')
 
+        # New document creation
         new_product = {
             "prodtype": request.form["prodtype"],
             "subtype": request.form["subtype"],
             "user_id": session.get("id"),
             "brand": request.form["brand"],
-            "capacity": int(request.form["capacity"]),
+            "capacity": capacity_data,
             "dop": request.form["dop"],
             "dou": request.form["dou"],
             "due_time": numbmonths,
@@ -67,10 +76,20 @@ def addproduct():
             }
         products.insert_one(new_product)
         flash("Product added to your Vanity")
-        return redirect(url_for('addproduct'))
+        return redirect(url_for('redistribution'))
 
     return render_template("addproduct.html", title="Add Product", form=form,
                            prodtypes=prodtypes)
+
+
+# Redistribution Card Route
+@app.route("/redistribution", methods=["GET", "POST"])
+def redistribution():
+    if session.get("id") is None:
+        flash("No Vanity is open")
+        return redirect(url_for('signin'))
+    
+    return render_template("redistribution.html", title="My Vanity")
 
 
 # Sign Up Route
@@ -85,6 +104,7 @@ def signup():
         if old_user is None:
             password_hash = bcrypt.generate_password_hash(
                 request.form["password"]).decode("utf-8")
+            # New user creation
             new_user = {
                 "name": request.form["username"].lower(),
                 "email": request.form["email"],

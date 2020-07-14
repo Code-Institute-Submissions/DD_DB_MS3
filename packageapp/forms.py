@@ -27,5 +27,6 @@ class ProductForm(FlaskForm):
     capacity = IntegerField("Capacity (ml/gr) *",
                             validators=[InputRequired(),
                                         NumberRange(min=1, max=3000)])
-    dueperiod = IntegerField("Due in (nº months)",
-                             validators=[NumberRange(min=1, max=12)])
+    dueperiod = IntegerField("Due in (nº months)*",
+                             validators=[DataRequired(),
+                                         NumberRange(min=1, max=12)])
