@@ -19,7 +19,11 @@ def products():
         flash("No Vanity is open")
         return redirect(url_for('signin'))
 
-    return render_template("products.html", title="My products")
+    prodtypes = mongodb.db.prodtypes
+    products = mongodb.db.products.find({"user_id": session["id"]})
+
+    return render_template("products.html", title="My products",
+                           prodtypes=prodtypes, products=products)
 
 
 # Edit Product Route
@@ -88,9 +92,10 @@ def redistribution():
     if session.get("id") is None:
         flash("No Vanity is open")
         return redirect(url_for('signin'))
-    
+
     owner = session["name"]
-    return render_template("redistribution.html", title="My Vanity", owner=owner)
+    return render_template("redistribution.html", title="My Vanity",
+                           owner=owner)
 
 
 # Sign Up Route

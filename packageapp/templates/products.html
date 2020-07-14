@@ -4,6 +4,20 @@
 
     <div class="product-form-container">
         <h2 class="teal-text lighten-1 title-style product-form-title">My Products</h2>
+        <div>
+            <form>
+
+            </form>
+        </div>
+        <div>
+        {% for item in products %}
+        <h5>{{ item.prodtype }}, <em>{{item.subtype}} ({{ item.brand }})</em></h5>
+        <h6>Size: {{ item.capacity }}<em>(ml/gr)</em></h6>
+        <h6>Purchase Date: {{ item.dop }}</h6>
+        <h6>1st Use Date: {{ item.dou }}</h6>
+        <h6>Due Date: {{ item.due_on }}</h6>
+        {% endfor %}
+        </div>
     </div>
 
 {% endblock %}
