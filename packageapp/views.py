@@ -1,15 +1,18 @@
 from packageapp import app, mongodb, bcrypt
 from flask import render_template, redirect, request, url_for, flash, session
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from packageapp.forms import SigninForm, SignupForm, ProductForm
 
 
+# Home Route
 @app.route("/")
 @app.route("/index")
 def index():
     return render_template("index.html", title="Index")
 
 
+# Products Route
 @app.route("/products", methods=["GET", "POST"])
 def products():
     if session.get("id") is None:
@@ -19,6 +22,7 @@ def products():
     return render_template("products.html", title="My products")
 
 
+# Edit Product Route
 @app.route("/editproduct", methods=["GET", "POST"])
 def editproduct():
     if session.get("id") is None:
@@ -27,6 +31,7 @@ def editproduct():
     return render_template("editproduct.html", title="Edit Product")
 
 
+# Add Product Route
 @app.route("/addproduct", methods=["GET", "POST"])
 def addproduct():
     if session.get("id") is None:
@@ -38,14 +43,26 @@ def addproduct():
     products = mongodb.db.products
 
     if form.validate_on_submit():
+        numbmonths = int(request.form["dueperiod"])
+
+        if request.values.get("duerelation") == "on":
+            due_origin = request.values.get("dou")
+        due_origin = request.values.get("dop")
+        date_object = datetime.strptime(due_origin, '%b %d, %Y')
+        due_date = date_object + relativedelta(months=numbmonths)
+        due_string = due_date.strftime('%b %d, %Y')
+
         new_product = {
             "prodtype": request.form["prodtype"],
             "subtype": request.form["subtype"],
             "user_id": session.get("id"),
             "brand": request.form["brand"],
-            "capacity": request.form["capacity"],
+            "capacity": int(request.form["capacity"]),
             "dop": request.form["dop"],
             "dou": request.form["dou"],
+            "due_time": numbmonths,
+            "due_in": request.values.get("duerelation"),
+            "due_on": due_string,
             "doe": datetime.utcnow()
             }
         products.insert_one(new_product)
@@ -56,6 +73,7 @@ def addproduct():
                            prodtypes=prodtypes)
 
 
+# Sign Up Route
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     form = SignupForm()
@@ -83,6 +101,7 @@ def signup():
     return render_template("signup.html", title="Sign Up", form=form)
 
 
+# Sign In Route
 @app.route("/signin", methods=["GET", "POST"])
 def signin():
     form = SigninForm()
@@ -110,6 +129,7 @@ def signin():
     return render_template("signin.html", title="Sign In", form=form)
 
 
+# Sign Out Route
 @app.route('/signout')
 def signout():
     if session.get("id") is None:

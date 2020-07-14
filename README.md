@@ -12,5 +12,6 @@ Flask-Pymongo - connect mongo
 Flask-bcrypt - hashing passwords
 email-validator - validate email fields in forms
 gunicorn - publish it for heroku
+python-dateutil - deltadates
 
 future: password recover, email db for spam
