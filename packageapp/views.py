@@ -19,13 +19,13 @@ def products():
         flash("No Vanity is open")
         return redirect(url_for('signin'))
 
-    prodtypes = mongodb.db.prodtypes
-    products = mongodb.db.products
     user_products = mongodb.db.products.find({"user_id": session["id"]})
 
     if request.method == "POST":
-        u_products = products.filter({""})
+        user_products = user_products.filter({""})
 
+    prodtypes = mongodb.db.prodtypes
+    products = mongodb.db.products
     return render_template("products.html", title="My products",
                            prodtypes=prodtypes, products=products,
                            user_products=user_products)
@@ -37,6 +37,7 @@ def editproduct():
     if session.get("id") is None:
         flash("No Vanity is open")
         return redirect(url_for('signin'))
+
     return render_template("editproduct.html", title="Edit Product")
 
 

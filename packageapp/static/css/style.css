@@ -79,6 +79,10 @@ body {
     line-height: normal;
 }
 
+.homepage-welcome {
+    margin-top: 15vh;
+}
+
 /* Sign In */
 
 .signin-card {
@@ -100,8 +104,24 @@ body {
     margin-top: 20px;
 }
 
+.product-panel {
+    margin: 5px 0;
+}
+
+.product-panel-card p,
+.product-panel-card h6 {
+    text-indent: 2vh;
+    margin: 1px;
+}
+
+.product-panel-attribute {
+    font-size: 80%;
+    font-style: italic;
+}
+
 .product-panel-btn {
     margin-right: 2vh;
+    margin-top: 15px;
 }
 
 /* Add Product */
