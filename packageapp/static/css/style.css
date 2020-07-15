@@ -90,16 +90,10 @@ body {
     top: 15vh;
 }
 
-/* Redistribution */
+/* Products */
 
-.redistribution-card {
-    position: absolute;
-    top: 60vh;
-}
-
-.redistribute-buttons {
-    height: fit-content;
-    line-height: 2;
+.product-view-container {
+    min-width: 310px;
 }
 
 /* Add Product */
@@ -126,6 +120,10 @@ body {
 
     .homepage-button a {
         font-size: 24px;
+    }
+
+    .product-view-container {
+        min-width: 70%;
     }
 
     .product-form-container {
