@@ -22,7 +22,13 @@ def products():
     user_products = mongodb.db.products.find({"user_id": session["id"]})
 
     if request.method == "POST":
-        user_products = user_products.filter({""})
+        filterfunc = request.form.get("filter")
+        sortfunc = request.form.get("sort")
+        if filterfunc:
+            user_products = mongodb.db.products.find({"user_id": session["id"],
+                                                      "prodtype": filterfunc})
+        if sortfunc:
+            user_products = user_products.sort({ sortfunc: -1 })
 
     prodtypes = mongodb.db.prodtypes
     products = mongodb.db.products

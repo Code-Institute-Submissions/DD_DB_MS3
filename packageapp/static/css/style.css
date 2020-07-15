@@ -25,6 +25,7 @@
 
 body {
     background-color: #FBE6AD;
+    background-color: #F3E7C5;
 }
 
 .header-height {
@@ -58,7 +59,7 @@ body {
 /* Index */
 
 .hero-image-index {
-    background-image: url(../images/vanity.png);
+    background-image: url(../images/1.png);
     background-size: cover;
     background-position: top center;
     width: 100%;
@@ -114,9 +115,14 @@ body {
     margin: 1px;
 }
 
+.product-panel-card p {
+    font-size: 90%;
+}
+
 .product-panel-attribute {
     font-size: 80%;
     font-style: italic;
+    padding-left: 5px;
 }
 
 .product-panel-btn {

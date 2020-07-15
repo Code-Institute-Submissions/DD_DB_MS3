@@ -6,14 +6,14 @@
         <h2 class="teal-text lighten-1 title-style product-form-title">My Products</h2>
         <!-- Search & Filter Form -->
         <div class="row">
-            <form>
+            <form action="{{ url_for('products') }}" method="POST">
                 <div class="col s3 hide-on-small-only">
                     <label>Search by Brand</label>
                     <input type="text">
                 </div>
                 <div class="col s5 m3">
                     <label>Filter by Type</label>
-                    <select>
+                    <select id="filter" name="filter">
                         <option value="" disabled selected>Filter</option>
                         {% for prodtype in prodtypes.find() %}
                         <option value="{{ prodtype.name }}">{{ prodtype.name }}</option>
@@ -22,9 +22,9 @@
                 </div>
                 <div class="col s5 m3">
                     <label>Sort by Date</label>
-                    <select>
-                        <option value="" disabled selected>Filter</option>
-                        {% for product in products.find() %}
+                    <select id="sort" name="sort">
+                        <option value="" disabled selected>Sort</option>
+                        {% for product in products.find({"name": "Example"}) %}
                             {% for key in product.keys() %}
                                 {% if "Date" in key %}
                                 <option value="{{ key }}">{{ key }}</option>
@@ -49,7 +49,7 @@
                 {% for item in user_products %}
                 <div class="row valign-wrapper product-panel">
                     <!-- Card Info -->
-                    <div class="col s9 product-panel-card">
+                    <div class="col s10 m9 product-panel-card">
                         <h6>
                             <strong>{{ item.prodtype }}</strong>, 
                             <span class="product-panel-attribute"><strong>({{item.subtype}})</strong> - {{ item.brand }}</span>
@@ -68,7 +68,7 @@
                         </p>
                     </div>
                     <!-- Card Buttons -->
-                    <div class="col s3">
+                    <div class="col s2 m3">
                         <div class="row">
                             <div class="right-align product-panel-btn">
                                 <a href="{{ url_for('products') }}" class="waves-effect teal lighten-1 btn-small title-style">
