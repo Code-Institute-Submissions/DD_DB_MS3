@@ -23,9 +23,9 @@
                     <label>Sort by Date</label>
                     <select>
                         <option value="" disabled selected>Filter</option>
-                        {% for product in products %}
+                        {% for product in products.find() %}
                             {% for key in product.keys() %}
-                                {% if "date" in key %}
+                                {% if "Date" in key %}
                                 <option value="{{ key }}">{{ key }}</option>
                                 {% endif %}
                             {% endfor %}
@@ -44,27 +44,33 @@
         </div>
         <div class="row">
             <div class="col s12">
-                {% for item in products %}
+                {% for item in user_products %}
                 <div class="row valign-wrapper">
                     <div class="col s9">
                         <h5>{{ item.prodtype }}, <em>{{item.subtype}} ({{ item.brand }})</em></h5>
                         <h6>Size: {{ item.capacity }}<em>(ml/gr)</em></h6>
-                        <h6>Purchase Date: {{ item.dop }}</h6>
-                        <h6>1st Use Date: {{ item.dou }}</h6>
-                        <h6>Due Date: {{ item.due_on }}</h6>
+                        <h6>Purchase Date: {{ item["Date of Purchase"] }}</h6>
+                        <h6>1st Use Date: {{ item["Date of 1st Use"] }}</h6>
+                        <h6>Due Date: {{ item["Due Date"] }}</h6>
                     </div>
                     <div class="col s3">
                         <div class="row">
-                            <div class="center-align">
+                            <div class="right-align product-panel-btn">
                                 <a href="{{ url_for('products') }}" class="waves-effect teal lighten-1 btn-small title-style">
-                                    <span class="hide-on-small-only">Edit Cosmetic</span><i class="tiny material-icons products-icon">edit</i>
+                                    <div class="row valign-wrapper">
+                                        <span class="hide-on-small-only">Edit Cosmetic</span>
+                                        <i class="tiny material-icons products-icon">edit</i>
+                                    </div>
                                 </a>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="center-align">
+                            <div class="right-align product-panel-btn">
                                 <a href="{{ url_for('products') }}" class="waves-effect teal lighten-1 btn-small title-style">
-                                    <span class="hide-on-small-only">Delete Cosmetic</span><i class="tiny material-icons products-icon">delete</i>
+                                    <div class="row valign-wrapper">
+                                        <span class="hide-on-small-only">Delete Cosmetic</span>
+                                        <i class="tiny material-icons products-icon">delete</i>
+                                    </div>
                                 </a>
                             </div>
                         </div>

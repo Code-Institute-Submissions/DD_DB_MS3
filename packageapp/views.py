@@ -20,13 +20,15 @@ def products():
         return redirect(url_for('signin'))
 
     prodtypes = mongodb.db.prodtypes
-    products = mongodb.db.products.find({"user_id": session["id"]})
+    products = mongodb.db.products
+    user_products = mongodb.db.products.find({"user_id": session["id"]})
 
     if request.method == "POST":
-        products = products.filter({""})
+        u_products = products.filter({""})
 
     return render_template("products.html", title="My products",
-                           prodtypes=prodtypes, products=products)
+                           prodtypes=prodtypes, products=products,
+                           user_products=user_products)
 
 
 # Edit Product Route
@@ -71,7 +73,7 @@ def addproduct():
             "prodtype": request.form["prodtype"],
             "subtype": request.form["subtype"],
             "user_id": session.get("id"),
-            "brand": request.form["brand"],
+            "brand": request.form["brand"].upper(),
             "capacity": capacity_data,
             "Date of Purchase": request.form["dop"],
             "Date of 1st Use": request.form["dou"],
