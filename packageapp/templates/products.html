@@ -4,19 +4,74 @@
 
     <div class="product-view-container">
         <h2 class="teal-text lighten-1 title-style product-form-title">My Products</h2>
-        <div>
+        <div class="row">
             <form>
-
+                <div class="col s3 hide-on-small-only">
+                    <label>Search by Brand</label>
+                    <input type="text">
+                </div>
+                <div class="col s5 m3">
+                    <label>Filter by Type</label>
+                    <select>
+                        <option value="" disabled selected>Filter</option>
+                        {% for prodtype in prodtypes.find() %}
+                        <option value="{{ prodtype.name }}">{{ prodtype.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col s5 m3">
+                    <label>Sort by Date</label>
+                    <select>
+                        <option value="" disabled selected>Filter</option>
+                        {% for product in products %}
+                            {% for key in product.keys() %}
+                                {% if "date" in key %}
+                                <option value="{{ key }}">{{ key }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col s2 m3 center-align products-icon-container">
+                    <button class="btn waves-effect waves-light title-style" type="submit" name="action">
+                        <div class="row valign-wrapper">
+                            <span class="hide-on-small-only">Search</span>
+                            <i class="tiny material-icons products-icon">search</i>
+                        </div>
+                    </button>
+                </div>
             </form>
         </div>
-        <div>
-        {% for item in products %}
-        <h5>{{ item.prodtype }}, <em>{{item.subtype}} ({{ item.brand }})</em></h5>
-        <h6>Size: {{ item.capacity }}<em>(ml/gr)</em></h6>
-        <h6>Purchase Date: {{ item.dop }}</h6>
-        <h6>1st Use Date: {{ item.dou }}</h6>
-        <h6>Due Date: {{ item.due_on }}</h6>
-        {% endfor %}
+        <div class="row">
+            <div class="col s12">
+                {% for item in products %}
+                <div class="row valign-wrapper">
+                    <div class="col s9">
+                        <h5>{{ item.prodtype }}, <em>{{item.subtype}} ({{ item.brand }})</em></h5>
+                        <h6>Size: {{ item.capacity }}<em>(ml/gr)</em></h6>
+                        <h6>Purchase Date: {{ item.dop }}</h6>
+                        <h6>1st Use Date: {{ item.dou }}</h6>
+                        <h6>Due Date: {{ item.due_on }}</h6>
+                    </div>
+                    <div class="col s3">
+                        <div class="row">
+                            <div class="center-align">
+                                <a href="{{ url_for('products') }}" class="waves-effect teal lighten-1 btn-small title-style">
+                                    <span class="hide-on-small-only">Edit Cosmetic</span><i class="tiny material-icons products-icon">edit</i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="center-align">
+                                <a href="{{ url_for('products') }}" class="waves-effect teal lighten-1 btn-small title-style">
+                                    <span class="hide-on-small-only">Delete Cosmetic</span><i class="tiny material-icons products-icon">delete</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>  
         </div>
     </div>
 

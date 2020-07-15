@@ -73,11 +73,11 @@ def addproduct():
             "user_id": session.get("id"),
             "brand": request.form["brand"],
             "capacity": capacity_data,
-            "dop": request.form["dop"],
-            "dou": request.form["dou"],
+            "Date of Purchase": request.form["dop"],
+            "Date of 1st Use": request.form["dou"],
             "due_time": numbmonths,
             "due_in": request.values.get("duerelation"),
-            "due_on": due_string,
+            "Due Date": due_string,
             "doe": datetime.utcnow()
             }
         products.insert_one(new_product)

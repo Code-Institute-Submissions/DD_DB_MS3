@@ -96,6 +96,10 @@ body {
     min-width: 310px;
 }
 
+.products-icon-container {
+    margin-top: 20px;
+}
+
 /* Add Product */
 
 .product-form-container {
@@ -132,5 +136,9 @@ body {
 
     .product-form-title {
         max-width: 100%;
+    }
+
+    .products-icon {
+        margin-left: 15px;
     }
   }
