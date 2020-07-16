@@ -83,7 +83,8 @@ def deleteproduct(product_id):
 
     flash("{} from {} was successfully deleted".format(product["subtype"],
                                                        product["brand"]))
-    # ADD DELETE
+    products.remove({"_id": ObjectId(product_id)})
+    
     return redirect(url_for('products'))
 
 
