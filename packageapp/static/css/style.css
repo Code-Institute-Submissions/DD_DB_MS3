@@ -130,6 +130,10 @@ body {
     margin-top: 15px;
 }
 
+.product-message-btn {
+    min-width: 160px;
+}
+
 /* Add Product */
 
 .product-form-container {
@@ -148,6 +152,10 @@ body {
         font-size: 200%;
     }
     
+    .btn-small {
+        min-width: 130px;
+    }
+
     .hero-image-index {
         width: 650px;
     }
@@ -166,6 +174,10 @@ body {
 
     .product-form-title {
         max-width: 100%;
+    }
+
+    .product-message-btn {
+        min-width: 160px;
     }
 
     .products-icon {

@@ -18,23 +18,56 @@ def products():
     if session.get("id") is None:
         flash("No Vanity is open")
         return redirect(url_for('signin'))
-
-    user_products = mongodb.db.products.find({"user_id": session["id"]})
-
+    # Original query & message
+    message = ""
+    query = {"user_id": session["id"]}
+    '''
+    POST product search filtering proccess function updating query
+    merging dict condition for find() with the user imput
+    '''
     if request.method == "POST":
         filterfunc = request.form.get("filter")
-        sortfunc = request.form.get("sort")
         if filterfunc:
-            user_products = mongodb.db.products.find({"user_id": session["id"],
-                                                      "prodtype": filterfunc})
+            query_update = {"prodtype": filterfunc}
+            query = {**query, **query_update}
+    '''
+    POST product search filtering proccess function updating query
+    merging dict condition for find() with the user imput
+    '''
+    if request.method == "POST":
+        brandfunc = request.form.get("brand").upper()
+        if brandfunc:
+            query_update = {"brand": brandfunc}
+            query = {**query, **query_update}
+
+    # Updated query after POST brand.input and/or filter.input
+    user_products = mongodb.db.products.find(query)
+
+    # Updated message after input fails to find()
+    if mongodb.db.products.count_documents(query) == 0:
+        filterfunc = request.form.get("filter")
+        brandfunc = request.form.get("brand")
+        if brandfunc:
+            message = "No " + brandfunc.upper() + " cosmetics in your Vanity"
+        elif filterfunc:
+            message = "No " + filterfunc + " cosmetics in your Vanity"
+        else:
+            message = "No cosmetics found in your Vanity"
+    '''
+    POST product search sorting proccess function using query
+    update and using sort() with the user imput
+    '''
+    if request.method == "POST":
+        sortfunc = request.form.get("sort")
         if sortfunc:
-            user_products = user_products.sort({ sortfunc: -1 })
+            print(sortfunc)
+            user_products = user_products.sort("sortfunc", 1)
 
     prodtypes = mongodb.db.prodtypes
     products = mongodb.db.products
     return render_template("products.html", title="My products",
                            prodtypes=prodtypes, products=products,
-                           user_products=user_products)
+                           user_products=user_products, message=message)
 
 
 # Edit Product Route
@@ -62,7 +95,7 @@ def addproduct():
         capacity_data = int(request.form["capacity"])
         '''
         Date input conditionals and operations to get
-        due date properly depending on choice
+        due date properly depending on switch choice
         '''
         if request.form["dou"] != "":
             if type(request.form.get("duerelation")) is str:

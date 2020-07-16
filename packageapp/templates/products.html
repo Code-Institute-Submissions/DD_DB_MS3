@@ -9,7 +9,7 @@
             <form action="{{ url_for('products') }}" method="POST">
                 <div class="col s3 hide-on-small-only">
                     <label>Search by Brand</label>
-                    <input type="text">
+                    <input id="brand" name="brand" type="text">
                 </div>
                 <div class="col s5 m3">
                     <label>Filter by Type</label>
@@ -33,7 +33,7 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="col s2 m3 center-align products-icon-container">
+                <div class="col s2 m3 right-align products-icon-container">
                     <button class="btn waves-effect waves-light title-style" type="submit" name="action">
                         <div class="row valign-wrapper">
                             <span class="hide-on-small-only">Search</span>
@@ -46,6 +46,7 @@
         <!-- Display Section -->
         <div class="row">
             <div class="col s12">
+                {% if message == "" %}
                 {% for item in user_products %}
                 <div class="row valign-wrapper product-panel">
                     <!-- Card Info -->
@@ -73,7 +74,7 @@
                             <div class="right-align product-panel-btn">
                                 <a href="{{ url_for('products') }}" class="waves-effect teal lighten-1 btn-small title-style">
                                     <div class="row valign-wrapper">
-                                        <span class="hide-on-small-only">Edit Cosmetic</span>
+                                        <span class="hide-on-small-only"> Edit Cosmetic</span>
                                         <i class="tiny material-icons products-icon">edit</i>
                                     </div>
                                 </a>
@@ -93,6 +94,42 @@
                 </div>
                 <div class="divider teal lighten-1"></div>
                 {% endfor %}
+                <!-- Nothing to Display Info -->
+                {% else %}
+                <div class="row product-panel">
+                    <div class="row">
+                        <div class="center-align">
+                            <h6 class="teal-text lighten-1 title-style product-form-title">{{ message }}</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="center-align product-panel-btn">
+                            <a href="{{ url_for('addproduct') }}" class="waves-effect teal lighten-1 btn-small title-style product-message-btn">
+                                <div class="row center-align">
+                                    {% if "found" in message %}
+                                    <span>Add Your First Cosmetic </span>
+                                    {% else %}
+                                    <span>Add A New Cosmetic </span>
+                                    {% endif %}
+                                    <i class="tiny material-icons right">add</i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% if "found" not in message %}
+                    <div class="row">
+                        <div class="center-align product-panel-btn">
+                            <a href="{{ url_for('products') }}" class="waves-effect teal lighten-1 btn-small title-style product-message-btn">
+                                <div class="row center-align">
+                                    <span>See Your Vanity </span>
+                                    <i class="tiny material-icons right">brush</i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
             </div>  
         </div>
     </div>
