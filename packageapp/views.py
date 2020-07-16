@@ -18,7 +18,9 @@ def products():
     if session.get("id") is None:
         flash("No Vanity is open")
         return redirect(url_for('signin'))
-    # Original query & message
+    # Original query & message & db collections
+    prodtypes = mongodb.db.prodtypes
+    products = mongodb.db.products
     message = ""
     query = {"user_id": session["id"]}
     '''
@@ -63,8 +65,6 @@ def products():
             print(sortfunc)
             user_products = user_products.sort("sortfunc", 1)
 
-    prodtypes = mongodb.db.prodtypes
-    products = mongodb.db.products
     return render_template("products.html", title="My products",
                            prodtypes=prodtypes, products=products,
                            user_products=user_products, message=message)
