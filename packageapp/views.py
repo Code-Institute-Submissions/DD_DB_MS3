@@ -10,7 +10,7 @@ from bson.objectid import ObjectId
 @app.route("/")
 @app.route("/index")
 def index():
-    return render_template("index.html", title="Index")
+    return render_template("index.html", title="My Vanity")
 
 
 # Products Route
@@ -66,9 +66,25 @@ def products():
             print(sortfunc)
             user_products = user_products.sort("sortfunc", 1)
 
-    return render_template("products.html", title="My products",
+    return render_template("products.html", title="My Cosmetics",
                            prodtypes=prodtypes, products=products,
                            user_products=user_products, message=message)
+
+
+# Delete Product Route
+@app.route("/deleteproduct/<product_id>", methods=["GET", "POST"])
+def deleteproduct(product_id):
+    if session.get("id") is None:
+        flash("No Vanity is open")
+        return redirect(url_for('signin'))
+
+    products = mongodb.db.products
+    product = products.find_one({"_id": ObjectId(product_id)})
+
+    flash("{} from {} was successfully deleted".format(product["subtype"],
+                                                       product["brand"]))
+    # ADD DELETE
+    return redirect(url_for('products'))
 
 
 # Edit Product Route
@@ -80,8 +96,12 @@ def editproduct(product_id):
 
     prodtypes = mongodb.db.prodtypes
     products = mongodb.db.products
-    product = mongodb.db.products.find({"_id": ObjectId(product_id)})
-    form = ProductForm()
+    product = products.find_one({"_id": ObjectId(product_id)})
+    print(product.keys())
+    print(product.values())
+    form = ProductForm(formdata={"Brand": product["brand"],
+                                 "Capacity (ml/gr) *": product["capacity"],
+                                 "Due in (nº months)*": product["due_time"]})
 
     return render_template("editproduct.html", title="Edit Cosmetic",
                            prodtypes=prodtypes, product=product, form=form)
@@ -135,7 +155,7 @@ def addproduct():
 
     prodtypes = mongodb.db.prodtypes
 
-    return render_template("addproduct.html", title="Add Product", form=form,
+    return render_template("addproduct.html", title="Add Cosmetic", form=form,
                            prodtypes=prodtypes)
 
 

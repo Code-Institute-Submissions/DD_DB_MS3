@@ -75,7 +75,7 @@
                     <div class="col s2 m3">
                         <div class="row">
                             <div class="right-align product-panel-btn">
-                                <a href="{{url_for('editproduct', product_id=item._id)}}" class="waves-effect teal lighten-1 btn-small title-style">
+                                <a href="{{ url_for('editproduct', product_id=item._id )}}" class="waves-effect teal lighten-1 btn-small title-style">
                                     <div class="row valign-wrapper">
                                         <span class="hide-on-small-only"> Edit Cosmetic</span>
                                         <i class="tiny material-icons products-icon">edit</i>
@@ -85,7 +85,7 @@
                         </div>
                         <div class="row">
                             <div class="right-align product-panel-btn">
-                                <a href="{{ url_for('products') }}" class="waves-effect teal lighten-1 btn-small title-style">
+                                <a href="{{ url_for('deleteproduct', product_id=item._id ) }}" class="waves-effect teal lighten-1 btn-small title-style">
                                     <div class="row valign-wrapper">
                                         <span class="hide-on-small-only">Delete Cosmetic</span>
                                         <i class="tiny material-icons products-icon">delete</i>

@@ -46,6 +46,10 @@ body {
     position: absolute;
 }
 
+.flashed-messages li {
+    padding: 0 65px;
+}
+
 .app-container {
     display: flex;
     justify-content: center;
@@ -149,7 +153,7 @@ body {
 
 @media screen and (min-width: 600px) {
     .flashed-messages {
-        font-size: 200%;
+        font-size: 150%;
     }
     
     .btn-small {
