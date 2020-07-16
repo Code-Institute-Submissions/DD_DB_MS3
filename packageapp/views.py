@@ -3,6 +3,7 @@ from flask import render_template, redirect, request, url_for, flash, session
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from packageapp.forms import SigninForm, SignupForm, ProductForm
+from bson.objectid import ObjectId
 
 
 # Home Route
@@ -46,7 +47,7 @@ def products():
     user_products = mongodb.db.products.find(query)
 
     # Updated message after input fails to find()
-    if mongodb.db.products.count_documents(query) == 0:
+    if products.count_documents(query) == 0:
         filterfunc = request.form.get("filter")
         brandfunc = request.form.get("brand")
         if brandfunc:
@@ -71,13 +72,19 @@ def products():
 
 
 # Edit Product Route
-@app.route("/editproduct", methods=["GET", "POST"])
-def editproduct():
+@app.route("/editproduct/<product_id>", methods=["GET", "POST"])
+def editproduct(product_id):
     if session.get("id") is None:
         flash("No Vanity is open")
         return redirect(url_for('signin'))
 
-    return render_template("editproduct.html", title="Edit Product")
+    prodtypes = mongodb.db.prodtypes
+    products = mongodb.db.products
+    product = mongodb.db.products.find({"_id": ObjectId(product_id)})
+    form = ProductForm()
+
+    return render_template("editproduct.html", title="Edit Cosmetic",
+                           prodtypes=prodtypes, product=product, form=form)
 
 
 # Add Product Route

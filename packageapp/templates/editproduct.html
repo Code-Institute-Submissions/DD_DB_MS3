@@ -2,6 +2,110 @@
 
 {% block content %}
 
-    <h1>edit product</h1>
-    
+    <div class="product-form-container">
+        <h2 class="teal-text lighten-1 title-style product-form-title">Edit Cosmetic</h2>
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+            <!-- Product Type Field -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">short_text</i>
+                    <select id="prodtype" name="prodtype" required>
+                        <option value="{{ product.prodtype }}" selected>{{ product.prodtype }}</option>
+                        {% for prodtype in prodtypes.find() %}
+                        <option value="{{ prodtype.name }}">{{ prodtype.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label>Product Type *</label>
+                </div>
+            </div>
+            <!-- Product Sub-Type Field -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">short_text</i>
+                    <select id="subtype" name="subtype" required>
+                        <option value="{{ product.subtype }}" selected>{{ product.subtype }}</option>
+                        {% for prodtype in prodtypes.find() %}
+                        <optgroup value="" label="{{ prodtype.name }}">
+                            {% for type in prodtype.subtypes %}
+                            <option value="{{ type }}">{{ type }}</option>
+                            {% endfor %}
+                        </optgroup>
+                        {% endfor %}
+                    </select>
+                    <label>Product Sub-Type *</label>
+                </div>
+            </div>
+            <!-- Brand Field -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">branding_watermark</i>
+                    <label for="brand">{{ form.brand.label }}</label>
+                    {{ form.brand(size=30, id="brand" value="{{ product.brand }}") }}
+                    {% for error in form.brand.errors %}
+                    <span>[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Capacity Field -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">all_inclusive</i>
+                    <label for="capacity">{{ form.capacity.label }}</label>
+                    {{ form.capacity(id="capacity", value="{{ product.capacity }}") }}
+                    {% for error in form.capacity.errors %}
+                    <span>[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Date of Purchase Field -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">today</i>
+                    <input type="text" class="datepicker" id="dop" name="dop" defaultDate="{{ product['Date of 1st Use'] }}" required>
+                    <label for="dop">Date of Purchase *</label>
+                </div>
+            </div>
+            <!-- Date of 1st Use Field -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">date_range</i>
+                    <input type="text" class="datepicker" id="dou" name="dou" defaultDate="{{ product['Date of Purchase'] }}">
+                    <label for="dou">Date of 1st Use</label>
+                </div>
+            </div>
+            <!-- Due Date Input -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">timer</i>
+                    <label for="dueperiod">{{ form.dueperiod.label }}</label>
+                    {{ form.dueperiod(id="dueperiod", value="{{ product.dueperiod }}") }}
+                    {% for error in form.dueperiod.errors %}
+                    <span>[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Due Date Relation -->
+            <div class="row">
+                <div class="col s12 center-align">
+                    <label for="due">Relate Caducity to</label>
+                    <div class="switch" id="due">
+                        <label>
+                        Purchase
+                        <input type="checkbox" id="duerelation" name="duerelation">
+                        <span class="lever"></span>
+                        Use
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- Submit Button -->
+            <div class="col s12 form-submit-placement center-align">
+                <button class="btn-large waves-effect waves-light title-style" type="submit" name="action">Add to Vanity
+                    <i class="tiny material-icons right">add</i>
+                </button>
+            </div>
+        </form>
+    </div>
+
 {% endblock %}

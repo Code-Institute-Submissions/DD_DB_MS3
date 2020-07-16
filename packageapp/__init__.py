@@ -2,7 +2,6 @@ import os
 from flask import Flask, url_for
 from config import Config
 from flask_pymongo import PyMongo
-from bson.objectid import ObjectId
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)

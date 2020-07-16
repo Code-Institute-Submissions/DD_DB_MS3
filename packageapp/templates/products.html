@@ -66,13 +66,16 @@
                         </p>
                         <p>Due Date: 
                             <span class="product-panel-attribute">{{ item["Due Date"] }}</span>
+                        </p>                        
+                        <p>ID: 
+                            <span class="product-panel-attribute">{{ item._id }}</span>
                         </p>
                     </div>
                     <!-- Card Buttons -->
                     <div class="col s2 m3">
                         <div class="row">
                             <div class="right-align product-panel-btn">
-                                <a href="{{ url_for('products') }}" class="waves-effect teal lighten-1 btn-small title-style">
+                                <a href="{{url_for('editproduct', product_id=item._id)}}" class="waves-effect teal lighten-1 btn-small title-style">
                                     <div class="row valign-wrapper">
                                         <span class="hide-on-small-only"> Edit Cosmetic</span>
                                         <i class="tiny material-icons products-icon">edit</i>
@@ -99,7 +102,7 @@
                 <div class="row product-panel">
                     <div class="row">
                         <div class="center-align">
-                            <h6 class="teal-text lighten-1 title-style product-form-title">{{ message }}</h6>
+                            <h6 class="teal-text lighten-1 title-style">{{ message }}</h6>
                         </div>
                     </div>
                     <div class="row">
