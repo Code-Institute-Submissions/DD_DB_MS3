@@ -62,7 +62,7 @@ def products():
         sortfunc = request.form.get("sort")
         if sortfunc:
             print(sortfunc)
-            user_products = user_products.sort("sortfunc", 1)
+            user_products = user_products.sort(sortfunc, 1)
 
     prodtypes = mongodb.db.prodtypes
     products = mongodb.db.products
