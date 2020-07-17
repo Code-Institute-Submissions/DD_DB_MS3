@@ -4,7 +4,7 @@
 
     <div class="product-form-container">
         <h2 class="teal-text lighten-1 title-style product-form-title">Edit Cosmetic</h2>
-        <form action="" method="POST">
+        <form action="{{ url_for('updateproduct', product_id=product['_id']) }}" method="POST">
             {{ form.hidden_tag() }}
             <!-- Product Type Field -->
             <div class="row">
@@ -113,17 +113,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             var optionsdop = {
                 defaultDate: new Date("{{ product['Date of Purchase'] }}"),
-                setDefaultDate: true
+                setDefaultDate: true,
             };
             var elemdop = document.querySelector('#dop');
-            var instance = M.Datepicker.init(elemdop, optionsdop);
+            var instancedop = M.Datepicker.init(elemdop, optionsdop).gotoDate(new Date("{{ product['Date of Purchase'] }}"));
 
             var optionsdou = {
                 defaultDate: new Date("{{ product['Date of 1st Use'] }}"),
                 setDefaultDate: true
             };
             var elemdou = document.querySelector('#dou');
-            var instance = M.Datepicker.init(elemdou, optionsdou);
+            var instancedou = M.Datepicker.init(elemdou, optionsdou).gotoDate(new Date("{{ product['Date of 1st Use'] }}"));
           });
     </script>
 

@@ -63,7 +63,7 @@ def products():
         if sortfunc:
             print(sortfunc)
             user_products = user_products.sort("sortfunc", 1)
-    
+
     prodtypes = mongodb.db.prodtypes
     products = mongodb.db.products
     return render_template("products.html", title="My Cosmetics",
@@ -96,16 +96,11 @@ def editproduct(product_id):
         return redirect(url_for('signin'))
 
     prodtypes = mongodb.db.prodtypes
-    products = mongodb.db.products
-    product = products.find_one({"_id": ObjectId(product_id)})
-    print(product.keys())
+    product = mongodb.db.products.find_one({"_id": ObjectId(product_id)})
     form = ProductForm()
-    
-    if form.validate_on_submit():
-        return redirect(url_for('updateproduct', product_id=product["_id"]))
     '''
-    Populate wtform with data from our product at formulary load, placed under
-    the if statement to avoid conflicts in process of data at redirect
+    Populate wtform with data from our product at formulary load, placed on
+    this route to avoid conflicts in process of data at submit to another
     '''
     form.brand.data = product["brand"]
     form.capacity.data = product["capacity"]
@@ -118,6 +113,10 @@ def editproduct(product_id):
 # Product Update Route (Update)
 @app.route('/updateproduct/<product_id>', methods=["GET", "POST"])
 def updateproduct(product_id):
+    if session.get("id") is None:
+        flash("No Vanity is open")
+        return redirect(url_for('signin'))
+
     products = mongodb.db.products
 
     if request.form.get("dueperiod"):
@@ -128,7 +127,7 @@ def updateproduct(product_id):
     Date input conditionals and operations to get
     due date properly depending on switch choice
     '''
-    if request.form["dou"] != "":
+    if request.form.get("dou") != "":
         if type(request.form.get("duerelation")) is str:
             due_origin = request.values.get("dou")
         else:
@@ -138,6 +137,7 @@ def updateproduct(product_id):
     date_object = datetime.strptime(due_origin, '%b %d, %Y')
     due_date = date_object + relativedelta(months=numbmonths)
     due_string = due_date.strftime('%b %d, %Y')
+
     # Actual Updating
     products.update({"_id": ObjectId(product_id)},
                     {
@@ -145,16 +145,18 @@ def updateproduct(product_id):
                     "subtype": request.form["subtype"],
                     "user_id": session.get("id"),
                     "brand": request.form.get("brand"),
-                    "capacity": request.form.get("capacity"),
+                    "capacity": capacity_data,
                     "Date of Purchase": request.form.get("dop"),
                     "Date of 1st Use": request.form.get("dou"),
-                    "due_time": request.form.get("dueperiod"),
+                    "due_time": numbmonths,
                     "due_in": request.values.get("duerelation"),
-                    "Due Date": "",
+                    "Due Date": due_string,
                     "doe": datetime.utcnow()
                     })
-                    
-    flash("Cosmetic Updated in your Vanity")
+    item = mongodb.db.products.find_one({"_id": ObjectId(product_id)})
+    flash("{} from {} was Successfully Updated".format(item["subtype"],
+                                                       item["brand"]))
+
     return redirect(url_for('products'))
 
 
