@@ -13,7 +13,7 @@ def index():
     return render_template("index.html", title="My Vanity")
 
 
-# Products Route
+# Products Route (Display)
 @app.route("/products", methods=["GET", "POST"])
 def products():
     if session.get("id") is None:
@@ -71,7 +71,7 @@ def products():
                            user_products=user_products, message=message)
 
 
-# Delete Product Route
+# Delete Product Route (Delete)
 @app.route("/deleteproduct/<product_id>", methods=["GET", "POST"])
 def deleteproduct(product_id):
     if session.get("id") is None:
@@ -84,11 +84,11 @@ def deleteproduct(product_id):
     flash("{} from {} was successfully deleted".format(product["subtype"],
                                                        product["brand"]))
     products.remove({"_id": ObjectId(product_id)})
-    
+
     return redirect(url_for('products'))
 
 
-# Edit Product Route
+# Edit Product Route (Update)
 @app.route("/editproduct/<product_id>", methods=["GET", "POST"])
 def editproduct(product_id):
     if session.get("id") is None:
@@ -99,16 +99,61 @@ def editproduct(product_id):
     products = mongodb.db.products
     product = products.find_one({"_id": ObjectId(product_id)})
     print(product.keys())
-    print(product.values())
     form = ProductForm(formdata={"Brand": product["brand"],
                                  "Capacity (ml/gr) *": product["capacity"],
                                  "Due in (nº months)*": product["due_time"]})
+
+    if form.validate_on_submit():
+        return redirect(url_for('updateproduct', product_id=product["_id"]))
 
     return render_template("editproduct.html", title="Edit Cosmetic",
                            prodtypes=prodtypes, product=product, form=form)
 
 
-# Add Product Route
+# Product Update Route (Update)
+@app.route('/updateproduct/<product_id>', methods=["GET", "POST"])
+def updateproduct(product_id):
+    products = mongodb.db.products
+
+    if request.form.get("dueperiod"):
+        numbmonths = int(request.form["dueperiod"])
+    if request.form.get("capacity"):
+        capacity_data = int(request.form["capacity"])
+    '''
+    Date input conditionals and operations to get
+    due date properly depending on switch choice
+    '''
+    if request.form["dou"] != "":
+        if type(request.form.get("duerelation")) is str:
+            due_origin = request.values.get("dou")
+        else:
+            due_origin = request.values.get("dop")
+    else:
+        due_origin = request.values.get("dop")
+    date_object = datetime.strptime(due_origin, '%b %d, %Y')
+    due_date = date_object + relativedelta(months=numbmonths)
+    due_string = due_date.strftime('%b %d, %Y')
+    # Actual Updating
+    products.update({"_id": ObjectId(product_id)},
+                    {
+                        "prodtype": request.form.get("prodtype"),
+                        "subtype": request.form.get("subtype"),
+                        "user_id": session.get("id"),
+                        "brand": request.form.get("brand").upper(),
+                        "capacity": capacity_data,
+                        "Date of Purchase": request.form.get("dop"),
+                        "Date of 1st Use": request.form.get("dou"),
+                        "due_time": numbmonths,
+                        "due_in": request.values.get("duerelation"),
+                        "Due Date": due_string,
+                        "doe": datetime.utcnow()
+                    })
+                    
+    flash("Cosmetic Updated in your Vanity")
+    return redirect(url_for('products'))
+
+
+# Add Product Route (Create)
 @app.route("/addproduct", methods=["GET", "POST"])
 def addproduct():
     if session.get("id") is None:
@@ -160,7 +205,7 @@ def addproduct():
                            prodtypes=prodtypes)
 
 
-# Sign Up Route
+# Sign Up Route (Create)
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     form = SignupForm()
@@ -189,7 +234,7 @@ def signup():
     return render_template("signup.html", title="Sign Up", form=form)
 
 
-# Sign In Route
+# Sign In Route (Display)
 @app.route("/signin", methods=["GET", "POST"])
 def signin():
     form = SigninForm()
