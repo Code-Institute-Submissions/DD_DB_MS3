@@ -112,18 +112,18 @@
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
             var optionsdop = {
-                defaultDate: new Date("{{ product['Date of Purchase'] }}"),
+                defaultDate: new Date("{{ product['dop'] }}"),
                 setDefaultDate: true,
             };
             var elemdop = document.querySelector('#dop');
-            var instancedop = M.Datepicker.init(elemdop, optionsdop).gotoDate(new Date("{{ product['Date of Purchase'] }}"));
+            var instancedop = M.Datepicker.init(elemdop, optionsdop).gotoDate(new Date("{{ product['dop'] }}"));
 
             var optionsdou = {
-                defaultDate: new Date("{{ product['Date of 1st Use'] }}"),
+                defaultDate: new Date("{{ product['dou'] }}"),
                 setDefaultDate: true
             };
             var elemdou = document.querySelector('#dou');
-            var instancedou = M.Datepicker.init(elemdou, optionsdou).gotoDate(new Date("{{ product['Date of 1st Use'] }}"));
+            var instancedou = M.Datepicker.init(elemdou, optionsdou).gotoDate(new Date("{{ product['dou'] }}"));
           });
     </script>
 

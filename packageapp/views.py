@@ -42,7 +42,7 @@ def products():
             query = {**query, **query_update}
 
     # Updated query after POST brand.input and/or filter.input
-    user_products = mongodb.db.products.find(query)
+    user_products = mongodb.db.products.find(query).sort("doe", -1)
 
     # Updated message after input fails to find()
     if mongodb.db.products.count_documents(query) == 0:
@@ -137,6 +137,8 @@ def updateproduct(product_id):
     date_object = datetime.strptime(due_origin, '%b %d, %Y')
     due_date = date_object + relativedelta(months=numbmonths)
     due_string = due_date.strftime('%b %d, %Y')
+    d_purchase = datetime.strptime(request.values.get("dop"), '%b %d, %Y')
+    d_use = datetime.strptime(request.values.get("dou"), '%b %d, %Y')
 
     # Actual Updating
     products.update({"_id": ObjectId(product_id)},
@@ -144,14 +146,17 @@ def updateproduct(product_id):
                     "prodtype": request.form["prodtype"],
                     "subtype": request.form["subtype"],
                     "user_id": session.get("id"),
-                    "brand": request.form.get("brand"),
+                    "brand": request.form["brand"].upper(),
                     "capacity": capacity_data,
-                    "Date of Purchase": request.form.get("dop"),
-                    "Date of 1st Use": request.form.get("dou"),
+                    "Date of Purchase": d_purchase,
+                    "dop": request.form.get("dop"),
+                    "Date of 1st Use": d_use,
+                    "dou": request.form.get("dou"),
                     "due_time": numbmonths,
                     "due_in": request.values.get("duerelation"),
-                    "Due Date": due_string,
-                    "doe": datetime.utcnow()
+                    "Due Date": due_date,
+                    "dd": due_string,
+                    "doe": datetime.utcnow(),
                     })
     item = mongodb.db.products.find_one({"_id": ObjectId(product_id)})
     flash("{} from {} was Successfully Updated".format(item["subtype"],
@@ -187,6 +192,8 @@ def addproduct():
         date_object = datetime.strptime(due_origin, '%b %d, %Y')
         due_date = date_object + relativedelta(months=numbmonths)
         due_string = due_date.strftime('%b %d, %Y')
+        d_purchase = datetime.strptime(request.values.get("dop"), '%b %d, %Y')
+        d_use = datetime.strptime(request.values.get("dou"), '%b %d, %Y')
 
         # New document creation
         new_product = {
@@ -195,11 +202,14 @@ def addproduct():
             "user_id": session.get("id"),
             "brand": request.form["brand"].upper(),
             "capacity": capacity_data,
-            "Date of Purchase": request.form["dop"],
-            "Date of 1st Use": request.form["dou"],
+            "Date of Purchase": d_purchase,
+            "dop": request.form["dop"],
+            "Date of 1st Use": d_use,
+            "dou": request.form["dou"],
             "due_time": numbmonths,
             "due_in": request.values.get("duerelation"),
-            "Due Date": due_string,
+            "Due Date": due_date,
+            "dd": due_string,
             "doe": datetime.utcnow()
             }
         products.insert_one(new_product)
