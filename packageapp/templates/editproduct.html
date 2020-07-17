@@ -107,18 +107,24 @@
             </div>
         </form>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <!-- JS for datepickers -->
     <script type="text/javascript">
-        $(document).ready(function() {
-            date_purchase = Date.parse("{{ product['Date of Purchase'] }}");
-            $('#dop').pickadate('picker').set('select', date_purchase, { format: '%b %d, %Y' }).trigger('change');
-            date_use = Date.parse("{{ product['Date of 1st Use'] }}");
-            $('#dou').pickadate('picker').set('select', date_use, { format: '%b %d, %Y' }).trigger('change');
-            console.log(date_use)
-            console.log(date_purchase)
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            var optionsdop = {
+                defaultDate: new Date("{{ product['Date of Purchase'] }}"),
+                setDefaultDate: true
+            };
+            var elemdop = document.querySelector('#dop');
+            var instance = M.Datepicker.init(elemdop, optionsdop);
+
+            var optionsdou = {
+                defaultDate: new Date("{{ product['Date of 1st Use'] }}"),
+                setDefaultDate: true
+            };
+            var elemdou = document.querySelector('#dou');
+            var instance = M.Datepicker.init(elemdou, optionsdou);
+          });
     </script>
 
 {% endblock %}

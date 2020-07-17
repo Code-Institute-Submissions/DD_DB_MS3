@@ -19,9 +19,7 @@ def products():
     if session.get("id") is None:
         flash("No Vanity is open")
         return redirect(url_for('signin'))
-    # Original query & message & db collections
-    prodtypes = mongodb.db.prodtypes
-    products = mongodb.db.products
+    # Original query & message
     message = ""
     query = {"user_id": session["id"]}
     '''
@@ -47,7 +45,7 @@ def products():
     user_products = mongodb.db.products.find(query)
 
     # Updated message after input fails to find()
-    if products.count_documents(query) == 0:
+    if mongodb.db.products.count_documents(query) == 0:
         filterfunc = request.form.get("filter")
         brandfunc = request.form.get("brand")
         if brandfunc:
@@ -65,7 +63,9 @@ def products():
         if sortfunc:
             print(sortfunc)
             user_products = user_products.sort("sortfunc", 1)
-
+    
+    prodtypes = mongodb.db.prodtypes
+    products = mongodb.db.products
     return render_template("products.html", title="My Cosmetics",
                            prodtypes=prodtypes, products=products,
                            user_products=user_products, message=message)
@@ -99,12 +99,17 @@ def editproduct(product_id):
     products = mongodb.db.products
     product = products.find_one({"_id": ObjectId(product_id)})
     print(product.keys())
-    form = ProductForm(formdata={"Brand": product["brand"],
-                                 "Capacity (ml/gr) *": product["capacity"],
-                                 "Due in (nº months)*": product["due_time"]})
-
+    form = ProductForm()
+    
     if form.validate_on_submit():
         return redirect(url_for('updateproduct', product_id=product["_id"]))
+    '''
+    Populate wtform with data from our product at formulary load, placed under
+    the if statement to avoid conflicts in process of data at redirect
+    '''
+    form.brand.data = product["brand"]
+    form.capacity.data = product["capacity"]
+    form.dueperiod.data = product["due_time"]
 
     return render_template("editproduct.html", title="Edit Cosmetic",
                            prodtypes=prodtypes, product=product, form=form)
@@ -136,17 +141,17 @@ def updateproduct(product_id):
     # Actual Updating
     products.update({"_id": ObjectId(product_id)},
                     {
-                        "prodtype": request.form.get("prodtype"),
-                        "subtype": request.form.get("subtype"),
-                        "user_id": session.get("id"),
-                        "brand": request.form.get("brand").upper(),
-                        "capacity": capacity_data,
-                        "Date of Purchase": request.form.get("dop"),
-                        "Date of 1st Use": request.form.get("dou"),
-                        "due_time": numbmonths,
-                        "due_in": request.values.get("duerelation"),
-                        "Due Date": due_string,
-                        "doe": datetime.utcnow()
+                    "prodtype": request.form["prodtype"],
+                    "subtype": request.form["subtype"],
+                    "user_id": session.get("id"),
+                    "brand": request.form.get("brand"),
+                    "capacity": request.form.get("capacity"),
+                    "Date of Purchase": request.form.get("dop"),
+                    "Date of 1st Use": request.form.get("dou"),
+                    "due_time": request.form.get("dueperiod"),
+                    "due_in": request.values.get("duerelation"),
+                    "Due Date": "",
+                    "doe": datetime.utcnow()
                     })
                     
     flash("Cosmetic Updated in your Vanity")
