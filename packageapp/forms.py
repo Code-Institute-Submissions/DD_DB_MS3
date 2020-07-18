@@ -28,5 +28,5 @@ class ProductForm(FlaskForm):
                             validators=[InputRequired(),
                                         NumberRange(min=1, max=3000)])
     dueperiod = IntegerField("Due in (nº months)*",
-                             validators=[DataRequired(),
+                             validators=[InputRequired(),
                                          NumberRange(min=1, max=12)])

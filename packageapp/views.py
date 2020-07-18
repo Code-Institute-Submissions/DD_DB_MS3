@@ -128,17 +128,18 @@ def updateproduct(product_id):
     due date properly depending on switch choice
     '''
     if request.form.get("dou") != "":
+        d_use = datetime.strptime(request.values.get("dou"), '%b %d, %Y')
         if type(request.form.get("duerelation")) is str:
             due_origin = request.values.get("dou")
         else:
             due_origin = request.values.get("dop")
     else:
         due_origin = request.values.get("dop")
+        d_use = ""
     date_object = datetime.strptime(due_origin, '%b %d, %Y')
     due_date = date_object + relativedelta(months=numbmonths)
     due_string = due_date.strftime('%b %d, %Y')
     d_purchase = datetime.strptime(request.values.get("dop"), '%b %d, %Y')
-    d_use = datetime.strptime(request.values.get("dou"), '%b %d, %Y')
 
     # Actual Updating
     products.update({"_id": ObjectId(product_id)},
@@ -183,17 +184,18 @@ def addproduct():
         due date properly depending on switch choice
         '''
         if request.form["dou"] != "":
+            d_use = datetime.strptime(request.values.get("dou"), '%b %d, %Y')
             if type(request.form.get("duerelation")) is str:
                 due_origin = request.values.get("dou")
             else:
                 due_origin = request.values.get("dop")
         else:
             due_origin = request.values.get("dop")
+            d_use = ""
         date_object = datetime.strptime(due_origin, '%b %d, %Y')
         due_date = date_object + relativedelta(months=numbmonths)
         due_string = due_date.strftime('%b %d, %Y')
         d_purchase = datetime.strptime(request.values.get("dop"), '%b %d, %Y')
-        d_use = datetime.strptime(request.values.get("dou"), '%b %d, %Y')
 
         # New document creation
         new_product = {
