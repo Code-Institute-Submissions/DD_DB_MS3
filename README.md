@@ -151,3 +151,38 @@ As explained, this WebApp consists on a template system so let's focus on the di
 
 The whole site has response from small devices to larger screens, moving sections from sideways to top/bottom when needed to achieve the best display. It is not responsive on 4k at the moment.
 
+### Future Features Objectives
+Ordering the possibilities in a list of viability, considering both complexity and relevance:
+
+1. Creating password recovery system in case user forgets. (LOW complexity / MED relevance)
+
+2. Adding a e-mail notification system when a product is about to reach de due date (MED complexity / MED relevance)
+
+3. Adding promoted items for companies each time a search in the user's vanity outputs less than 5 items. (HIG complexity / MED relevance)
+
+---
+
+## Testing
+During the development phase, using VS Code and running a local server in a virtual enviroment made it very easy to adjust response and test the majority as was coded, via Developer Tools and terminal outputs.
+
+After finishing the coding, used "HTML validator", "CSS lint" and "PEP 8 validator" checking for possible warnings or errors.
+
+>Note: as a template system is being used for this project we need to obviate some html validation "issues".
+
+**Global Display:** tests were made on browsers (Chrome, Edge, Firefox), tablets and phones ensuring responsiveness of the WebApp on every screen size. Some examples of portable devices used by testers involved or myself were:
+
+ * Huawei Mate 9 Lite, Huawei GR5 2017
+ * Apple iPhone 11
+ * Apple iPhone 8
+ * Samsung Galaxy A50
+ * BQ Aquaris M10 Ubuntu Edition
+ * Microsoft Surface 2
+ 
+**Template Routes:** I can't stress enough the important that has been filling console log at the start of every route during the developement process to be able to trace were the crash happened when it did. The second usefull thing has been using print() inside and after conditional statements. The combination of both of this features made the testing and indentifying issues as easy as it gets. This methodology has been a constant untill the product was finished.
+
+**Database CRUD:** creation, deletion and edition of items (cosmetics) in the database was tested the help of some Beta-testers. Once more, this is very important to really be able to find problems with wrong inputs using a wide range of users. In this specific case, using MongoDB Clusters, made it very easy to check how was data being recorded and modify your code if needed.
+
+**Links:** a single external link is present. It was tested after deployment at GitHub Pages.
+
+---
+
