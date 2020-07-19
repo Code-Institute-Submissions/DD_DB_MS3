@@ -25,13 +25,13 @@ This is a cosmatic manager, where you can add, filter and sort your cosmetics. T
 3. [Testing](#Testing)
 4. [Deployment](#Deployment)
 
+    * [Tech Used](#Tech-Used)
     * [Github Pages](#Configuration-of-GitHub-Pages)
     * [Cloning Repository](#Cloning-the-Repository)
 
 5. [Credits](#Credits)
 
     * [Images](#Images)
-    * [Music](#Music)
     * [Acknowledgements](#Acknowledgements)
 
 6. [Contact](#Contact)
@@ -186,3 +186,31 @@ After finishing the coding, used "HTML validator", "CSS lint" and "PEP 8 validat
 
 ---
 
+
+
+---
+
+## Credits
+
+All the ideas, materials displayed, database entry and all the site designs belong to Ángel González.
+
+### Images
+[*Canva.com*](https://www.canva.com/)
+
+**Disclaimer:** This site and its contents or any portion thereof may not be reproduced or used in any manner whatsoever without the express written permission of the publisher except for the use of brief quotations as credits and/or recommendation. Copyright © 2020.
+
+### Acknowledgements
+Great help once more from the documentation of these two sites, you can really learn as you go and adapt their examples to your own code:
+
+    * [w3schools](https://www.w3schools.com/)
+    * [MDN](https://developer.mozilla.org/en-US/)
+    * [MongoDB](https://docs.atlas.mongodb.com/)
+    * [Flask](https://flask.palletsprojects.com/en/1.1.x/)
+
+Also a shoutout to my mentor on this project [Maranatha A. Ilesanmi](https://github.com/mbilesanmi) for providing guidance when needed.
+
+---
+
+## Contact
+
+**E-mail:** a.cruzana88@gmail.com :technologist:
