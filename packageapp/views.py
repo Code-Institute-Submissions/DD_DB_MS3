@@ -289,3 +289,11 @@ def signout():
     session.pop("id", None)
     flash("Vanity closed successfully")
     return redirect(url_for('index'))
+
+
+# Error Handling Route
+@app.errorhandler(Exception)
+def errorhandler(e):
+    flash("Cosmetics were taking the wrong path...")
+    flash("All is good back Home")
+    return redirect(url_for('index'))
