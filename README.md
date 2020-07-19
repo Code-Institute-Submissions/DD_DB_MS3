@@ -116,3 +116,38 @@ Color palette, as mentioned before, sticks to pastel tones that are commonly ass
 
 ---
 
+## Features
+As explained, this WebApp consists on a template system so let's focus on the different views:
+
+* **Site Icon**: a personalized WebApp icon displays on the browser. Also, it appears in the case someone bookmarks the game page.
+
+    ![Favicon](/packageapp/static/images/favicon.png "Favicon")
+
+* **Navbar**: display position allways stays on the right top corner of the screen. Is composed of just material icons, although a tooltip displays when they are hovered over. Here we can see the user icon swap once logged in, preventing accidental shut down of the session.
+
+    ![Navbar-loggedoff](/packageapp/static/images/screencaptures/floating-navbar.png "Navbar logged off") ![Navbar-loggedin](/packageapp/static/images/screencaptures/floating-navbar-off.png "Navbar logged in")
+
+* **User system**: this system was needed to allow each user to create a "share" on the database and allow the items be personal and not accessed by others for editing or deletion. We also protected the views and user is asked to login in order to access any of the WebApp functions. Here we can see the login prompt:
+
+    ![Sign In prompt](/packageapp/static/images/screencaptures/sign-in.png "Sign In prompt")
+
+    *New?*: this sentence is linked to a [(SignUp form)](/packageapp/static/images/screencaptures/sign-up.png) for new users to proceed. At the same time this form is linked to the SignIn in case user already has an acc.
+
+* **Add and Edit forms**: two of the main functionalities are both create cosmetics for your vanity and afterwards edit them in case you replace them, change the size, the due date, etc... Both forms have field validations and in the case of edition field are pre-filled by existent cosmetic information. Here are displayed the browser clipped versions, but click and you can see the [(portable device)](/packageapp/static/images/screencaptures/add-product-form-phone.png) display, although that one would need scrolling:
+
+    ![Add Product](/packageapp/static/images/screencaptures/add-product-form.png "Add Product") ![Edit Product](/packageapp/static/images/screencaptures/edit-product-form.png "Edit Product")
+
+    *About validation*: all field marked with * are required before submit is available. Specifically: datepickers are read-only to avoid text inputs, type and subtype fields are selectable to keep the database as organized as possible and integer fields have a range determined and is prompted to user in the case is not complied.
+
+* **Vanity Display**: here is met the main functionallity of the WebApp. Browser preview:
+
+    ![My Cosmetics](/packageapp/static/images/screencaptures/products-full-browser.png "My Cosmetics")
+
+    *Search Bar*: the search bar is composed of three diferent options: search by brand, filter by type and sort by date (3 sort options). All the three fields are quite descriptive and they affect the output once the search button is clicked. Only extra feature to indicate is the hiding of the search by brand field in the smaller devices to allow the design to stay clean and symetric, check it out [(here)](/packageapp/static/images/screencaptures/products-phone.png).
+
+    *CTA's*: the interactive buttons on this view all have text and icon, on smaller devices text hides, leaving the icon alone for better design.
+
+    *Display Section*: products found for the user or following the filters applied are displayed in a card format with the types and brand as title and some relevant information underneath. Every card contains two cta's for edit and delete the item. One thing to remark is that when the display produces no results at all, the user is prompted to either try another search and go back to all its products display or add a new product, check it out [(here)](/packageapp/static/images/screencaptures/products-none-browser.png).
+
+The whole site has response from small devices to larger screens, moving sections from sideways to top/bottom when needed to achieve the best display. It is not responsive on 4k at the moment.
+
