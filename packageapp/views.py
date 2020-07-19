@@ -99,6 +99,12 @@ def editproduct(product_id):
 
     prodtypes = mongodb.db.prodtypes
     product = mongodb.db.products.find_one({"_id": ObjectId(product_id)})
+
+    # Secutiry measure checking item ownage
+    if product["user_id"] != session.get("id"):
+        flash("nice try tho")
+        return redirect(url_for('index'))
+
     form = ProductForm()
     '''
     Populate wtform with data from our product at formulary load, placed on
