@@ -1,12 +1,12 @@
 # DD_DB_MS3
-'My Vanity', cosmetic manager (Milestone PJ 3 -CI FSC)
+['My Vanity'](https://vanitymanager.herokuapp.com/), cosmetic manager (Milestone PJ 3 -CI FSC)
 
 # My Vanity
-Cosmetic Manager
+Cosmetic Manager [(access here)](https://vanitymanager.herokuapp.com/)
 
 **(MS Data Centric Development - Code Institute by Ángel González)**
 
-This is a cosmatic manager, where you can add, filter and sort your cosmetics. The WebApp is both available to be played in browser of portable device. The app supports users login and access to a database to store the entries.
+This is a cosmetic manager, where you can add, edit, filter and sort your cosmetics. The WebApp is both available to be played in browser of portable device. The app supports users login and access to a database to store the entries.
 
 ---
 
@@ -26,8 +26,9 @@ This is a cosmatic manager, where you can add, filter and sort your cosmetics. T
 4. [Deployment](#Deployment)
 
     * [Tech Used](#Tech-Used)
-    * [Github Pages](#Configuration-of-GitHub-Pages)
-    * [Cloning Repository](#Cloning-the-Repository)
+    * [Github Pages](#Configuration-on-Heroku-Apps)
+    * [Cloning Repository](#Cloning-the-GitHub-Repository)
+    * [Running it localy](#Running-it-localy)
 
 5. [Credits](#Credits)
 
@@ -186,7 +187,46 @@ After finishing the coding, used "HTML validator", "CSS lint" and "PEP 8 validat
 
 ---
 
+## Deployment
+This site is temporarily hosted on Heroku Apps, [(access here)](https://vanitymanager.herokuapp.com/). 
 
+Deployment on Heroku was made before submitting the project for final testing. The project was kept on a virtual enviroment on my end for testing and modifications, even though it was committed to GitHub and updated via GitBash on a frequent basis.
+
+#### Tech Used
+1. HTML5
+2. CSS3
+3. [Materialize CSS](https://materializecss.com/about.html)
+4. Python
+5. [MongoDB Clusters](https://cloud.mongodb.com/)
+6. Flask + Jinja2 framework + flask-extensions [(see requirements.txt)](requirements.txt)
+
+#### Configuration on Heroku Apps
+1. Subscribe to Heroku and create your new app.
+2. In your GitBash/Terminal go to your master directory.
+3. Type **"heroku login"** and follow the prompts.
+4. Once logged in, type **"git push heroku master"** and wait untill process finishes.
+5. Once your app is loaded on Heroku, type **"heroku ps:scale web=1"** to set Heroku on basic level.
+6. After scarce time, your app should be ready. Either follow your terminal prompted link or go to your Heroku profile.
+7. Mind that this App needs access to a database and the "Config Vars" on your Heroku App must be set to satisfy the Config.py file.
+
+#### Cloning the GitHub Repository
+To run it on your local computer with a virtual enviroment, see under, the repository must be cloned beforehand.
+
+1. Once on the repository locate the *Clone or Download* dropdown menu.
+2. Copy either the HTTPS or SSH route to your clipboard.
+3. Open *GitBash* and move to the folder where you want to place the cloned repository files.
+4. Type **"git clone"**, **tap spacebar once** and then paste the route copied in your clipboar at *step 2*.
+5. Press Enter to exec the command and the local cloned files will be created.
+
+#### Running it localy
+To run it on your local computer with a virtual enviroment, the repository must be cloned beforehand, see above.
+
+1. Install python3 on your computer.
+2. Access to the master directory in your terminal and type **"python3 -m venv venv"** to create a virtual enviroment called "venv" in this case (second venv on command).
+3. After venv files are created, if you are using Mac/Linux type **"source venv/bin/activate"**, on Windows type **"venv\Scripts\activate"** instead.
+4. Your terminal should be placed on your master directory but one level further in your virtual enviroment "venv".
+5. Now you must indicate were is the Flask app accesing from, for that we type **"export FLASK_APP=mainfile.py"**, being "mainfile" the one you need. Please use "set" instead of "export" if you are using Windows.
+6. Once the entry point is set, we can type **"flask run"** and the terminal will give us our local port to access the app live.
 
 ---
 
@@ -202,10 +242,10 @@ All the ideas, materials displayed, database entry and all the site designs belo
 ### Acknowledgements
 Great help once more from the documentation of these two sites, you can really learn as you go and adapt their examples to your own code:
 
-    * [w3schools](https://www.w3schools.com/)
-    * [MDN](https://developer.mozilla.org/en-US/)
-    * [MongoDB](https://docs.atlas.mongodb.com/)
-    * [Flask](https://flask.palletsprojects.com/en/1.1.x/)
+* [w3schools](https://www.w3schools.com/)
+* [MDN](https://developer.mozilla.org/en-US/)
+* [MongoDB](https://docs.atlas.mongodb.com/)
+* [Flask](https://flask.palletsprojects.com/en/1.1.x/)
 
 Also a shoutout to my mentor on this project [Maranatha A. Ilesanmi](https://github.com/mbilesanmi) for providing guidance when needed.
 
