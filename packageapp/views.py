@@ -48,7 +48,9 @@ def products():
     if mongodb.db.products.count_documents(query) == 0:
         filterfunc = request.form.get("filter")
         brandfunc = request.form.get("brand")
-        if brandfunc:
+        if brandfunc and filterfunc:
+            message = "No "+brandfunc.upper()+" "+filterfunc+" in your Vanity"
+        elif brandfunc:
             message = "No " + brandfunc.upper() + " cosmetics in your Vanity"
         elif filterfunc:
             message = "No " + filterfunc + " cosmetics in your Vanity"
