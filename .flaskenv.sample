@@ -1,0 +1,2 @@
+FLASK_APP=<ENTRYPOINTFILE>.py
+MONGO_URI='mongodb+srv://<USERCLUSTER & PASSWORD>mongodb.net/MUManager?retryWrites=true&w=majority'

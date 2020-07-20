@@ -239,7 +239,7 @@ Deployment on Heroku was made before submitting the project for final testing. T
 4. Once logged in, type **"git push heroku master"** and wait until the process finishes.
 5. Once your app is loaded on Heroku, type **"heroku ps:scale web=1"** to set Heroku on a basic level.
 6. After scarce time, your app should be ready. Either follow your terminal prompted link or go to your Heroku profile.
-7. Mind that this App needs access to a database and the "Config Vars" on your Heroku App must be set to satisfy the Config.py file.
+7. Mind that this App needs access to a database and the "Config Vars", similar to [file](.flaskenv.sample) content, on your Heroku App must be set to satisfy the Config.py file.
 
 #### Cloning the GitHub Repository
 To run it on your local computer with a virtual environment, see below, the repository must be cloned beforehand.
@@ -258,7 +258,8 @@ To run it on your local computer with a virtual environment, the repository must
 3. After venv files are created, if you are using Mac/Linux type **"source venv/bin/activate"**, on Windows type **"venv\Scripts\activate"** instead.
 4. Your terminal should be placed on your master directory, but one level further in your virtual environment "venv".
 5. Now you must indicate where is the Flask app accessing from, for that we type **"export FLASK_APP=mainfile.py"**, being "mainfile" the one you need. Please use "set" instead of "export" if you are using Windows.
-6. Once the entry point is set, we can type **"flask run"** and the terminal will give us our local port to access the app live.
+6. For your enviroment variables like the database access and even your entry file your must have a file similar to [this](.flaskenv.sample), edited with your own file and database data.
+7. Once the entry point is set, we can type **"flask run"** and the terminal will give us our local port to access the app live.
 
 ---
 
