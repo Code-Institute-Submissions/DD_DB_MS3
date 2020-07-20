@@ -63,7 +63,6 @@ def products():
     if request.method == "POST":
         sortfunc = request.form.get("sort")
         if sortfunc:
-            print(sortfunc)
             user_products = user_products.sort(sortfunc, 1)
 
     prodtypes = mongodb.db.prodtypes
@@ -303,5 +302,5 @@ def signout():
 @app.errorhandler(Exception)
 def errorhandler(e):
     flash("Cosmetics were taking the wrong path...")
-    flash("All is good back Home")
+    flash("All is good back at your Vanity")
     return redirect(url_for('index'))

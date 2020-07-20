@@ -107,8 +107,8 @@
                 $('.tooltipped').tooltip();
                 $('select').formSelect();
                 $('select[required]').css({display: "block", height: 0, padding: 0, width: 0, position: 'absolute', left: '50%'});
-                $('#filter').change(function() {
-                    var productfield = $('#filter option:selected').text();
+                $('#prodtype').change(function() {
+                    var productfield = $('#prodtype option:selected').text();
                     console.log(productfield); //select 1st field choice
                 });
             });
