@@ -21,6 +21,10 @@
     margin-top: 10px;
 }
 
+.divider:last-child {
+    display: none;
+}
+
 /* Base */
 
 body {
@@ -103,6 +107,11 @@ body {
 
 .product-view-container {
     min-width: 310px;
+    padding: 0 3px;
+}
+
+.product-search-field-row {
+    margin: 0;
 }
 
 .products-icon-container {
@@ -132,6 +141,10 @@ body {
 .product-panel-btn {
     margin-right: 2vh;
     margin-top: 15px;
+}
+
+.product-panel-btn a {
+    border: 1px solid #26a69a;
 }
 
 .product-message-btn {

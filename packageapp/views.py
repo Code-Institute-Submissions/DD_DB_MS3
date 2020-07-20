@@ -38,7 +38,7 @@ def products():
     if request.method == "POST":
         brandfunc = request.form.get("brand").upper()
         if brandfunc:
-            query_update = {"brand": brandfunc}
+            query_update = {"brand": {'$regex': brandfunc}}
             query = {**query, **query_update}
 
     # Updated query after POST brand.input and/or filter.input
@@ -301,6 +301,5 @@ def signout():
 # Error Handling Route
 @app.errorhandler(Exception)
 def errorhandler(e):
-    flash("Cosmetics were taking the wrong path...")
-    flash("All is good back at your Vanity")
+    flash("Cosmetics were taking the wrong path... But all is good back at your Vanity")
     return redirect(url_for('index'))

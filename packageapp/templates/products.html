@@ -7,36 +7,54 @@
         <!-- Search & Filter Form -->
         <div class="row">
             <form action="{{ url_for('products') }}" method="POST">
-                <div class="col s3 hide-on-small-only">
-                    <label>Search by Brand</label>
-                    <input id="brand" name="brand" type="text">
+                <div class="col s12 m3">
+                    <div class="row product-search-field-row">
+                        <div class="col s3 m12">
+                            <label>Search by Brand</label>
+                        </div>
+                        <div class="col s9 m12">
+                            <input id="brand" name="brand" type="text">
+                        </div>
+                    </div>
                 </div>
-                <div class="col s5 m3">
-                    <label>Filter by Type</label>
-                    <select id="filter" name="filter">
-                        <option value="" disabled selected>Filter</option>
-                        {% for prodtype in prodtypes.find() %}
-                        <option value="{{ prodtype.name }}">{{ prodtype.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col s5 m3">
-                    <label>Sort by Date</label>
-                    <select id="sort" name="sort">
-                        <option value="" disabled selected>Sort</option>
-                        {% for product in products.find({"name": "Example"}) %}
-                            {% for key in product.keys() %}
-                                {% if "Date" in key %}
-                                <option value="{{ key }}">{{ key }}</option>
-                                {% endif %}
+                <div class="col s12 m3">
+                    <div class="row product-search-field-row">
+                        <div class="col s3 m12">
+                            <label>Filter by Type</label>
+                        </div>
+                        <div class="col s9 m12">
+                            <select id="filter" name="filter">
+                            <option value="" disabled selected>Filter</option>
+                            {% for prodtype in prodtypes.find() %}
+                            <option value="{{ prodtype.name }}">{{ prodtype.name }}</option>
                             {% endfor %}
-                        {% endfor %}
-                    </select>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="col s2 m3 right-align products-icon-container">
+                <div class="col s12 m3">
+                    <div class="row product-search-field-row">
+                        <div class="col s3 m12">
+                            <label>Sort by Date</label>
+                        </div>
+                        <div class="col s9 m12">
+                            <select id="sort" name="sort">
+                                <option value="" disabled selected>Sort</option>
+                                {% for product in products.find({"name": "Example"}) %}
+                                    {% for key in product.keys() %}
+                                        {% if "Date" in key %}
+                                        <option value="{{ key }}">{{ key }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m3 center-align products-icon-container">
                     <button class="btn waves-effect waves-light title-style" type="submit" name="action">
                         <div class="row valign-wrapper">
-                            <span class="hide-on-small-only">Search</span>
+                            <span>Search</span>
                             <i class="tiny material-icons products-icon">search</i>
                         </div>
                     </button>
@@ -45,7 +63,7 @@
         </div>
         <!-- Display Section -->
         <div class="row">
-            <div class="col s12">
+            <div class="col s12 lime lighten-5 z-depth-2">
                 {% if message == "" %}
                 {% for item in user_products %}
                 <div class="row valign-wrapper product-panel">
@@ -72,7 +90,7 @@
                     <div class="col s2 m3">
                         <div class="row">
                             <div class="right-align product-panel-btn">
-                                <a href="{{ url_for('editproduct', product_id=item._id )}}" class="waves-effect teal lighten-1 btn-small title-style">
+                                <a href="{{ url_for('editproduct', product_id=item._id )}}" class="waves-effect transparent teal-text lighten-1 btn-small title-style">
                                     <div class="row valign-wrapper">
                                         <span class="hide-on-small-only"> Edit Cosmetic</span>
                                         <i class="tiny material-icons products-icon">edit</i>
@@ -82,7 +100,7 @@
                         </div>
                         <div class="row">
                             <div class="right-align product-panel-btn">
-                                <a href="{{ url_for('deleteproduct', product_id=item._id ) }}" class="waves-effect teal lighten-1 btn-small title-style">
+                                <a href="{{ url_for('deleteproduct', product_id=item._id ) }}" class="waves-effect transparent red-text darken-1 btn-small title-style">
                                     <div class="row valign-wrapper">
                                         <span class="hide-on-small-only">Delete Cosmetic</span>
                                         <i class="tiny material-icons products-icon">delete</i>
