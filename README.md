@@ -19,7 +19,8 @@ If you want to try out with a test user, sign in with this information: **user:*
     * [Strategy](#Strategy)
     * [Wireframes](#Wireframes)
     * [Scope](#Scope)
-    * [Structure](#Structure)
+    * [App Structure](#App-Display-Structure)
+    * [DB Structure](#DB-Structure)
     * [Theming](#Theming)
 2. [Features](#Features)
     * [Future Features](#Future-Features-Objectives)
@@ -97,7 +98,7 @@ The project itself was very database oriented so I kept the scope smaller, focus
 
 Read more about future increase of Scope in [(Future Features)](#Future-Features-Objectives).
 
-### Structure
+### App Display Structure
 Both in the browser and the portable device views structuring focus is on the symmetry in the distribution of the CTA's and different displays. [(See full-size preview here)](/packageapp/static/images/screencaptures/full-view-browser.png), we will analyze the device view:
 
   ![Full-view-phone](/packageapp/static/images/screencaptures/full-view-phone.png "Phone View")
@@ -107,6 +108,17 @@ The **navbar** floating button, displays on the top corner always accessible.
 The **CTA's or buttons** section, displays centered, focusing attention.
 
 The **messages** section, displays under the CTA's, avoiding also visual conflict with the background image. On the landing page acts as a welcome message once logged, afterwards we will see about prompt flashed messages, [(see Features)](#Features).
+
+### DB Structure
+A crucial part of the project is the database and its structure. The cluster consists of three collections, let's see the structure of them and the way data was processed:
+
+* **Users:** produced from *Sign Up* form, contains the input name, e-mail, a hashed password and the date of registry. The only processing here was setting all the text as lowercase in order to be able to manipulate the display afterwards as we may need and, of course, the encoding of the password [(with Bcrypt)](https://flask-bcrypt.readthedocs.io/en/latest/) for security reasons. Check a stored example [here](/packageapp/static/images/screencaptures/dbuser.png).
+
+* **Product Types:** this collection is manipulated just by the DB manager and is used to qualify the bulk of items in some ways to produce sort, filter and other functionalities. It consists of a name of the type attached to an array of the subtypes. Check a stored example [here](/packageapp/static/images/screencaptures/dbtype.png).
+
+* **Products:** produced from the *Add Product* form, contains all the data that the user inputs about the item to store.  
+![here](/packageapp/static/images/screencaptures/dbproduct.png)  
+As displayed, in this case it needed a bit more of data processing in order to keep the DB as ordered, accessible and quick responsive as possible. That means doing all transforms and operations to data when storing it on the DB instead when getting the information back from it. Actual operations can be checked in the code itself, but it is appreciated on the image above how the dates are stored both in string and datetime and how integer values are forced to be a number instead of a string. Keep in mind, regarding the three first field of the image item, how we relate the product to the *Product Types* collection and also the *User* that created it.
 
 ### Theming
 As mentioned, about the theming, coherence was a key issue in order to impact in a more intuitive and friendly UX.
@@ -183,7 +195,23 @@ After finishing the coding, used "HTML validator", "CSS lint" and "PEP 8 validat
  * BQ Aquaris M10 Ubuntu Edition
  * Microsoft Surface 2
  
-**Template Routes:** I can't stress enough the importance that had situating a console log at the start of every route during the development process to be able to trace where the crash happened when it did. The second useful thing has been using print() inside and after conditional statements. The combination of both of these features made the testing and identifying issues as easy as it gets. This methodology has been a constant until the product was finished.
+**Template Routes:** I can't stress enough the importance that had situating a console log at the start of every route during the development process to be able to trace where the crash happened when it did. The second useful thing has been using print() inside and after conditional statements. The combination of both of these features made the testing and identifying issues as easy as it gets. This methodology has been a constant until the product was finished. Here is a small snippet as example were you can see how to track the stages of a logic proccess and the values it is working with:
+
+>@app.route1("/route1")  
+def route1():  
+*console.log("route 1 open")*  
+>>if something-happened:  
+*console.log("inside if statement")*  
+>>>value = request.form["needed value"]  
+*print(value)*  
+
+> ... 
+>>else:  
+*console.log("if statement checked but not used")*  
+
+>...  
+*console.log("route 1 logic finished")*  
+return redirect('route1-endpoint')  
 
 **Database CRUD:** creation, deletion and edition of items (cosmetics) in the database was tested with the help of some Beta-testers. Once more, this is very important to really be able to find problems with the wrong inputs using a wide range of users. In this specific case, using MongoDB Clusters, made it very easy to check how was the data being recorded and modify your code if needed.
 
