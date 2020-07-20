@@ -88,32 +88,31 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script>
-            // init for materialize components 
+            // init for materialize components with options
             document.addEventListener('DOMContentLoaded', function() {
-                var elems = document.querySelectorAll('.fixed-action-btn');
-                var instances = M.FloatingActionButton.init(elems, {
-                direction: 'left',
-                hoverEnabled: false
+                var elemfloat = document.querySelectorAll('.fixed-action-btn');
+                var instancefloat = M.FloatingActionButton.init(elemfloat, {
+                    direction: 'left',
+                    hoverEnabled: false
                 });
-            });
-            document.addEventListener('DOMContentLoaded', function() {
-                var elems = document.querySelectorAll('.datepicker');
-                var instances = M.Datepicker.init(elems, {
+                var elempicker = document.querySelectorAll('.datepicker');
+                var instancepicker = M.Datepicker.init(elempicker, {
                     selectYears: 4,
                     firstDay: 1,
                 });
-            });            
+            });
+            // init for materialize components without options and others
             $(document).ready(function(){
                 $('.tooltipped').tooltip();
                 $('select').formSelect();
+                //required tag displayed on the center
                 $('select[required]').css({display: "block", height: 0, padding: 0, width: 0, position: 'absolute', left: '50%'});
+                //select 1st field choice
                 $('#prodtype').change(function() {
                     var productfield = $('#prodtype option:selected').text();
-                    console.log(productfield); //select 1st field choice
+                    console.log(productfield);
                 });
-            });
-            // flashed messages vanishing 
-            $(document).ready(function(){
+                // flashed messages vanishing 
                 setTimeout(function() {
                     $('.flashed-messages').fadeOut('fast');
                 }, 4000);

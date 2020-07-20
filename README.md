@@ -6,7 +6,7 @@ Cosmetic Manager [(access here)](https://vanitymanager.herokuapp.com/){:target="
 
 **(MS Data Centric Development - Code Institute by Ángel González)**
 
-This is a cosmetic manager, where you can add, edit, filter and sort your cosmetics. The WebApp is both available to be played in browser of portable device. The app supports users login and access to a database to store the entries.
+This is a cosmetic manager, where you can add, edit, filter and sort your cosmetics. The WebApp is both available to be played in browser of portable device. The app supports users login and access to a database to store the entries. If you want to try out with a test user, **user:** *test*, **password:** *test*.
 
 ---
 
