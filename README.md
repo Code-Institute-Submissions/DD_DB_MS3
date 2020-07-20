@@ -110,7 +110,7 @@ The **CTA's or buttons** section, displays centered, focusing attention.
 The **messages** section, displays under the CTA's, avoiding also visual conflict with the background image. On the landing page acts as a welcome message once logged, afterwards we will see about prompt flashed messages, [(see Features)](#Features).
 
 ### DB Structure
-A crucial part of the project is the database and its structure. The cluster consists of three collections, let's see the structure of them and the way data was processed:
+A crucial part of the project is the database and its structure, [check schema](/packageapp/static/images/screencaptures/dbschema.png). The cluster consists of three collections, let's see the structure of them and the way data was processed:
 
 * **Users:** produced from *Sign Up* form, contains the input name, e-mail, a hashed password and the date of registry. The only processing here was setting all the text as lowercase in order to be able to manipulate the display afterwards as we may need and, of course, the encoding of the password [(with Bcrypt)](https://flask-bcrypt.readthedocs.io/en/latest/) for security reasons. Check a stored example [here](/packageapp/static/images/screencaptures/dbuser.png).
 
@@ -118,7 +118,7 @@ A crucial part of the project is the database and its structure. The cluster con
 
 * **Products:** produced from the *Add Product* form, contains all the data that the user inputs about the item to store.  
 ![here](/packageapp/static/images/screencaptures/dbproduct.png)  
-As displayed, in this case it needed a bit more of data processing in order to keep the DB as ordered, accessible and quick responsive as possible. That means doing all transforms and operations to data when storing it on the DB instead when getting the information back from it. Actual operations can be checked in the code itself, but it is appreciated on the image above how the dates are stored both in string and datetime and how integer values are forced to be a number instead of a string. Keep in mind, regarding the three first field of the image item, how we relate the product to the *Product Types* collection and also the *User* that created it.
+As displayed, in this case it needed a bit more of data processing in order to keep the DB as ordered, accessible and quick responsive as possible. That means doing all transforms and operations to data when storing it on the DB instead when getting the information back from it. Actual operations can be checked in the code itself, but it is appreciated on the image above how the dates are stored both in string and datetime and how integer values are forced to be a number instead of a string. Keep in mind, regarding the three first field of the image item, how we relate the product to the *Product Types* collection and also the *User* that created it, [check schema](/packageapp/static/images/screencaptures/dbschema.png).
 
 ### Theming
 As mentioned, about the theming, coherence was a key issue in order to impact in a more intuitive and friendly UX.
