@@ -4,10 +4,10 @@
 
     <div class="product-form-container">
         <h2 class="teal-text lighten-1 title-style product-form-title">Add Cosmetic</h2>
-        <form action="" method="POST">
+        <form class="lime lighten-5 z-depth-2 teal-text" action="" method="POST">
             {{ form.hidden_tag() }}
             <!-- Product Type Field -->
-            <div class="row">
+            <div class="row product-search-field-row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">short_text</i>
                     <select id="prodtype" name="prodtype" required>
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <!-- Product Sub-Type Field -->
-            <div class="row">
+            <div class="row product-search-field-row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">short_text</i>
                     <select id="subtype" name="subtype" required>
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <!-- Brand Field -->
-            <div class="row">
+            <div class="row product-search-field-row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">branding_watermark</i>
                     <label for="brand">{{ form.brand.label }}</label>
@@ -48,7 +48,7 @@
                 </div>
             </div>
             <!-- Capacity Field -->
-            <div class="row">
+            <div class="row product-search-field-row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">all_inclusive</i>
                     <label for="capacity">{{ form.capacity.label }}</label>
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <!-- Date of Purchase Field -->
-            <div class="row">
+            <div class="row product-search-field-row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">today</i>
                     <input type="text" class="datepicker readonly" id="dop" name="dop" onkeypress="return false;" required>
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <!-- Date of 1st Use Field -->
-            <div class="row">
+            <div class="row product-search-field-row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">date_range</i>
                     <input type="text" class="datepicker" id="dou" name="dou" onkeypress="return false;">
@@ -75,7 +75,7 @@
                 </div>
             </div>
             <!-- Due Date Input -->
-            <div class="row">
+            <div class="row product-search-field-row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">timer</i>
                     <label for="dueperiod">{{ form.dueperiod.label }}</label>
