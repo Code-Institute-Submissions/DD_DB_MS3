@@ -4,6 +4,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from packageapp.forms import SigninForm, SignupForm, ProductForm
 from bson.objectid import ObjectId
+from flask_paginate import Pagination, get_page_parameter
 
 
 # Home Route
@@ -19,6 +20,12 @@ def products():
     if session.get("id") is None:
         flash("No Vanity is open")
         return redirect(url_for('signin'))
+
+    # Pagination setup
+    page = request.args.get(get_page_parameter(), default=1, type=int)
+    per_page = 5
+    offset = (page - 1) * per_page
+
     # Original query & message
     message = ""
     query = {"user_id": session["id"]}
@@ -42,7 +49,8 @@ def products():
             query = {**query, **query_update}
 
     # Updated query after POST brand.input and/or filter.input
-    user_products = mongodb.db.products.find(query).sort("doe", -1)
+    user_products = mongodb.db.products.find(query)
+    user_products = user_products.sort("doe", -1).skip(offset).limit(per_page)
 
     # Updated message after input fails to find()
     if mongodb.db.products.count_documents(query) == 0:
@@ -51,9 +59,9 @@ def products():
         if brandfunc and filterfunc:
             message = "No "+brandfunc.upper()+" "+filterfunc+" in your Vanity"
         elif brandfunc:
-            message = "No " + brandfunc.upper() + " cosmetics in your Vanity"
+            message = "No "+brandfunc.upper()+" cosmetics in your Vanity"
         elif filterfunc:
-            message = "No " + filterfunc + " cosmetics in your Vanity"
+            message = "No "+filterfunc+" cosmetics in your Vanity"
         else:
             message = "No cosmetics found in your Vanity"
     '''
@@ -67,9 +75,14 @@ def products():
 
     prodtypes = mongodb.db.prodtypes
     products = mongodb.db.products
+    pagination = Pagination(page=page, total=user_products.count(),
+                            per_page=per_page, css_framework="materialize",
+                            offset=offset, record_name='cosmetics')
+
     return render_template("products.html", title="My Cosmetics",
                            prodtypes=prodtypes, products=products,
-                           user_products=user_products, message=message)
+                           user_products=user_products, message=message,
+                           pagination=pagination)
 
 
 # Delete Product Route (Delete)
