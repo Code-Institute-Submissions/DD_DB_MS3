@@ -164,6 +164,8 @@ As explained, this WebApp consists on a template system so let's focus on the di
 
     *Display Section*: products found for the user or following the filters applied are displayed in a card format with the types and brand as the title and some relevant information underneath. Every card contains two cta's for edit and delete the item. One thing to remark is that when the display produces no results at all, the user is prompted to either try another search and go back to all its products display or add a new product, check it out [(here)](/packageapp/static/images/screencaptures/products-none-browser.png).
 
+* **Display Pagination**: on the display are for the user cosmetics, a pagination system is implemented with the help of an extension, check for flask-pagination on [requirements.txt](requirements.txt). In the products view, just 5 items are visualized at time, following the filter and or sort that the user implemented.
+
 * **Flash Messages**: on every view, the upper center part is cleared of content (zone besides navbar floating button). Here, helped by flash() Flask function and some jQuery to fade them out afterwards, the information for the user is displayed. Flash messages appear as confirmation of every action made, such as edition, addition, deletion, log in/out, etc...
 
 The whole site has response from small devices to larger screens, moving sections from sideways to top/bottom when needed to achieve the best display. It is not responsive on 4k at the moment.

@@ -196,6 +196,14 @@ def addproduct():
     form = ProductForm()
 
     if form.validate_on_submit():
+        try:
+            check = datetime.strptime(request.values.get("dop"), '%b %d, %Y')
+        except:
+            check = "fail"
+        if type(check) is not datetime:
+            flash("Date was not correct, please pick one")
+            return redirect(url_for('addproduct'))
+
         products = mongodb.db.products
         numbmonths = int(request.form["dueperiod"])
         capacity_data = int(request.form["capacity"])
@@ -204,14 +212,19 @@ def addproduct():
         due date properly depending on switch choice
         '''
         if request.form["dou"] != "":
-            d_use = datetime.strptime(request.values.get("dou"), '%b %d, %Y')
+            dt_pur = datetime.strptime(request.values.get("dop"), '%b %d, %Y')
+            dt_use = datetime.strptime(request.values.get("dou"), '%b %d, %Y')
+            if dt_use < dt_pur:
+                flash("""Can't use a cosmetic before purchasing, please pick
+                      the correct dates""")
+                return redirect(url_for('addproduct'))
             if type(request.form.get("duerelation")) is str:
                 due_origin = request.values.get("dou")
             else:
                 due_origin = request.values.get("dop")
         else:
             due_origin = request.values.get("dop")
-            d_use = ""
+            dt_use = ""
         date_object = datetime.strptime(due_origin, '%b %d, %Y')
         due_date = date_object + relativedelta(months=numbmonths)
         due_string = due_date.strftime('%b %d, %Y')
@@ -226,7 +239,7 @@ def addproduct():
             "capacity": capacity_data,
             "Date of Purchase": d_purchase,
             "dop": request.form["dop"],
-            "Date of 1st Use": d_use,
+            "Date of 1st Use": dt_use,
             "dou": request.form["dou"],
             "due_time": numbmonths,
             "due_in": request.values.get("duerelation"),
@@ -314,5 +327,6 @@ def signout():
 # Error Handling Route
 @app.errorhandler(Exception)
 def errorhandler(e):
-    flash("Cosmetics were taking the wrong path... But all is good back at your Vanity")
+    flash("""Cosmetics were taking the wrong path...
+          But all is good back at your Vanity""")
     return redirect(url_for('index'))
