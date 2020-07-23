@@ -219,6 +219,8 @@ return redirect('route1-endpoint')
 
 **Links:** a single external link is present. It was tested after deployment at GitHub Pages.
 
+**Bugs:** one bug has been found at this moment. As the pagination system via extension was implemented late in the development stage, it fails to paginate effectively once the results are filtered and or sorted. Url modification by the extension doesn't match the view basic url making it recognize the sort/filter at the submission, but ignoring it once next or a page number is clicked.
+
 ---
 
 ## Deployment
